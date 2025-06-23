@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Home, ShoppingCart, User } from 'lucide-react';
+import { Home, CreditCard, FileText, User } from 'lucide-react';
 
 export default function Navigation() {
   return (
@@ -12,7 +12,7 @@ export default function Navigation() {
               `flex flex-col items-center ${isActive ? 'text-blue-600' : 'text-gray-500'}`
             }
           >
-            <Home size={24} />
+            <Home size={20} />
             <span className="text-xs mt-1">Home</span>
           </NavLink>
           
@@ -22,8 +22,18 @@ export default function Navigation() {
               `flex flex-col items-center ${isActive ? 'text-blue-600' : 'text-gray-500'}`
             }
           >
-            <ShoppingCart size={24} />
-            <span className="text-xs mt-1">Purchase</span>
+            <CreditCard size={20} />
+            <span className="text-xs mt-1">Payments</span>
+          </NavLink>
+          
+          <NavLink
+            to="/bills"
+            className={({ isActive }) =>
+              `flex flex-col items-center ${isActive ? 'text-blue-600' : 'text-gray-500'}`
+            }
+          >
+            <FileText size={20} />
+            <span className="text-xs mt-1">Bills</span>
           </NavLink>
           
           <NavLink
@@ -32,7 +42,7 @@ export default function Navigation() {
               `flex flex-col items-center ${isActive ? 'text-blue-600' : 'text-gray-500'}`
             }
           >
-            <User size={24} />
+            <User size={20} />
             <span className="text-xs mt-1">Profile</span>
           </NavLink>
         </div>
