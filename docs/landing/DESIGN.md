@@ -12,7 +12,7 @@ Mode: **Persuade** (landing page). Visitor: a landlord or property manager, usua
 
 ## Digital edition
 
-`digital.html` swaps the brass dial for the box-bodied digital meter (flip lid, LCD dial, brass couplings, seal) and the in-house keypad unit. The keypad is live: visitors can type the SMS token, see it accepted once, and see it rejected as used the second time. Hardware colours are the objects' own and stay fixed in both themes. Everything else is shared with `index.html`.
+On this branch, the root `index.html` swaps the brass dial for the box-bodied digital meter (flip lid, LCD dial, brass couplings, seal) and the in-house keypad unit. The keypad is live: visitors can type the SMS token, see it accepted once, and see it rejected as used the second time. Hardware colours are the objects' own and stay fixed in both themes. Everything else is shared with the analog page on `main`.
 
 ## Refused on purpose
 

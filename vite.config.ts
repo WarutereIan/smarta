@@ -1,18 +1,46 @@
-import { defineConfig } from 'vite';
+import { resolve } from 'node:path';
+import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
+// The marketing landing page owns "/", the tenant app lives under "/tenant/".
+// In dev, send deep links like /tenant/purchase to the app's index.html so
+// React Router can handle them (production hosts need the same rewrite).
+const rewriteTenant = (req: { url?: string }, _res: unknown, next: () => void) => {
+  const url = req.url ?? '';
+  if (url.startsWith('/tenant') && !url.includes('.') && !url.startsWith('/tenant/@')) {
+    req.url = '/tenant/index.html';
+  }
+  next();
+};
+const tenantSpaFallback = (): Plugin => ({
+  name: 'tenant-spa-fallback',
+  configureServer(server) {
+    server.middlewares.use(rewriteTenant);
+  },
+  configurePreviewServer(server) {
+    server.middlewares.use(rewriteTenant);
+  }
+});
+
 export default defineConfig({
   plugins: [
+    tenantSpaFallback(),
     react(),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+      workbox: {
+        navigateFallback: '/tenant/index.html',
+        navigateFallbackAllowlist: [/^\/tenant/]
+      },
       manifest: {
         name: 'Smata Water App',
         short_name: 'Smata',
         description: 'Smart water management system',
         theme_color: '#3b82f6',
+        start_url: '/tenant/',
+        scope: '/tenant/',
         icons: [
           {
             src: 'pwa-192x192.png',
@@ -27,5 +55,13 @@ export default defineConfig({
         ]
       }
     })
-  ]
+  ],
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        tenant: resolve(__dirname, 'tenant/index.html')
+      }
+    }
+  }
 });
