@@ -23,14 +23,35 @@ const tenantSpaFallback = (): Plugin => ({
   }
 });
 
+// The web app manifest belongs to the tenant app, not the landing page.
+const landingWithoutManifest = (): Plugin => ({
+  name: 'landing-without-manifest',
+  enforce: 'post',
+  transformIndexHtml: {
+    order: 'post',
+    handler(html, ctx) {
+      if (ctx.path !== '/index.html') return html;
+      return html.replace(/\s*<link rel="manifest"[^>]*>/, '');
+    }
+  }
+});
+
 export default defineConfig({
   plugins: [
     tenantSpaFallback(),
     react(),
+    // The tenant app's service worker is scoped to /tenant/ and registered from
+    // the app itself, so it can never serve the landing page. /sw.js is a
+    // clean-up worker (public/sw.js) for browsers still holding the old
+    // root-scoped worker.
     VitePWA({
       registerType: 'autoUpdate',
+      injectRegister: false,
+      filename: 'tenant-sw.js',
+      scope: '/tenant/',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       workbox: {
+        globIgnores: ['sw.js', 'index.html', 'landing/**'],
         navigateFallback: '/tenant/index.html',
         navigateFallbackAllowlist: [/^\/tenant/]
       },
@@ -54,7 +75,8 @@ export default defineConfig({
           }
         ]
       }
-    })
+    }),
+    landingWithoutManifest()
   ],
   build: {
     rollupOptions: {

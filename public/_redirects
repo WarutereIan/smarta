@@ -1,2 +1,8 @@
-# Netlify: let React Router handle deep links inside the tenant app
-/tenant/*  /tenant/index.html  200
+# Old tenant app URLs from before the landing page moved to "/"
+/auth       /tenant/auth      301
+/purchase   /tenant/purchase  301
+/bills      /tenant/bills     301
+/profile    /tenant/profile   301
+
+# Let React Router handle deep links inside the tenant app
+/tenant/*   /tenant/index.html  200
