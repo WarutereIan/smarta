@@ -1259,6 +1259,75 @@ form.pilot-form {
 @media (max-width: 900px) { .pilot-card { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 480px) { .f-row { grid-template-columns: minmax(0, 1fr); } }
 
+/* ---------- Tenants ---------- */
+.ten-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+.ten-copy { display: grid; gap: 2rem; min-width: 0; }
+.ten-ticks { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem 1.6rem; }
+.sms-stack { display: grid; gap: 14px; justify-items: start; min-width: 0; }
+.bubble {
+  max-width: 400px;
+  padding: 0.9rem 1rem;
+  border-radius: 18px 18px 18px 6px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+.bubble:nth-child(2) { margin-left: clamp(0px, 4vw, 48px); }
+.bubble:nth-child(3) { margin-left: clamp(0px, 8vw, 96px); }
+.bubble .from { display: block; font: 600 0.68rem/1 var(--f-mono); letter-spacing: 0.1em; color: var(--aqua); margin-bottom: 0.45rem; }
+.bubble.warn { border-color: color-mix(in srgb, var(--brass) 55%, transparent); }
+.bubble.warn .from { color: var(--brass-ink); }
+.sms-stack .example { margin-left: 4px; }
+@media (max-width: 900px) {
+  .ten-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 560px) {
+  .ten-ticks { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- Getting started ---------- */
+.start-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.start-step {
+  position: relative;
+  display: grid;
+  gap: 0.7rem;
+  align-content: start;
+  padding: clamp(20px, 2.4vw, 32px);
+  border-radius: 18px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  min-width: 0;
+}
+.start-step .num {
+  width: 2.6rem; height: 2.6rem; border-radius: 50%;
+  display: grid; place-items: center;
+  font: 800 1.15rem/1 var(--f-display);
+  background: var(--ink); color: var(--paper);
+}
+.start-step h3 { font-size: 1.2rem; }
+.start-step p { color: var(--ink-2); }
+.start-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: calc(clamp(20px, 2.4vw, 32px) + 1.3rem);
+  right: -18px;
+  width: 18px;
+  height: 2px;
+  background: var(--aqua);
+}
+@media (max-width: 860px) {
+  .start-grid { grid-template-columns: minmax(0, 1fr); }
+  .start-step:not(:last-child)::after { top: auto; bottom: -18px; right: auto; left: calc(clamp(20px, 2.4vw, 32px) + 1.3rem - 1px); width: 2px; height: 18px; }
+}
+
+/* pilot reassurance list on the dark card */
+.pilot-ticks { margin-top: 0.4rem; }
+.pilot-ticks b { color: var(--night-ink); }
+.pilot-ticks span { color: var(--night-ink-2); }
+.pilot-ticks svg { color: var(--brass-hi); }
+
 /* ---------- Footer ---------- */
 .foot { padding-block: 2.5rem 3rem; border-top: 1px solid var(--line); }
 .foot-in { display: flex; flex-wrap: wrap; gap: 1.5rem 3rem; align-items: flex-start; justify-content: space-between; }

@@ -23,6 +23,9 @@ npx serve website
   (`{ name, phone, units, role }`), for example a Supabase edge function. Until then the form
   validates input and tells the visitor that nothing was sent.
 - **Claims to confirm with Stron and operations** before the page goes public: keypad token entry,
-  tamper types (magnet, cover open, reverse flow), IP67 and 5+ year battery on the chosen model,
-  low-credit SMS, tiered tariffs, and the pilot scope (survey, install, onboarding, one month of reporting).
+  tamper alerts (cover opened, magnet), sealed enclosure and 5+ year battery on the chosen model,
+  low-credit SMS, settlement of M-Pesa top-ups to the landlord's account, and that our team installs
+  meters and briefs tenants.
+- **Messaging and segments** live in `.agents/product-marketing.md`; open `[NEED: ...]` items there
+  (meter cost model, free site visit, emergency credit, proof points) change what the page can promise.
 - All dashboard figures, names and network data on the page are labelled examples.

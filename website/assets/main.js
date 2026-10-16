@@ -146,12 +146,12 @@
     toggle.addEventListener("click", function () {
       closed = !closed;
       toggle.setAttribute("aria-pressed", String(closed));
-      toggleLabel.textContent = closed ? "Open the valve remotely" : "Close the valve remotely";
+      toggleLabel.textContent = closed ? "Turn the water back on" : "Turn off water to this unit";
       stage.classList.toggle("is-closed", closed);
-      chipValve.textContent = closed ? "Closing…" : "Opening…";
+      chipValve.textContent = closed ? "Turning off…" : "Turning on…";
       lcdValve.textContent = closed ? "VALVE ---" : "VALVE ---";
       setTimeout(function () {
-        chipValve.textContent = closed ? "Closed" : "Open";
+        chipValve.textContent = closed ? "Off" : "On";
         lcdValve.textContent = closed ? "VALVE CLOSED" : "VALVE OPEN";
         chipValveWrap.classList.toggle("is-alert", closed);
         lastSync = 0;
@@ -212,8 +212,9 @@
     var el = $("#statement");
     if (!el) return;
     var words = el.textContent.trim().split(/\s+/);
+    var range = (el.getAttribute("data-hl") || "-1,-1").split(",").map(Number);
     el.innerHTML = words.map(function (w, i) {
-      var hl = i >= 4 && i <= 6 ? " hl" : "";
+      var hl = i >= range[0] && i <= range[1] ? " hl" : "";
       return '<span class="w' + hl + '">' + w + "</span>";
     }).join(" ");
     var spans = $$(".w", el);
@@ -290,7 +291,7 @@
       if (idx === 3) { credit = 0.3 + 5 * ease(clamp(t / 0.7, 0, 1)); open = t > 0.25; }
       if (idx > 3) { credit = 5.3; open = true; }
       miniCredit.textContent = credit.toFixed(3);
-      miniValve.textContent = open ? "OPEN" : "CLOSED";
+      miniValve.textContent = open ? "ON" : "OFF";
       valveInd.style.transform = open ? "rotate(0deg)" : "rotate(90deg)";
       sms.classList.toggle("off", !(idx > 2 || (idx === 2 && t > 0.3)));
 
@@ -298,7 +299,7 @@
       var dt = idx < 4 ? 0 : ease(clamp((t - 0.25) / 0.5, 0, 1));
       dashTotal.textContent = fmtKsh(12500 + 500 * dt);
       var delivered = idx === 4 && t > 0.5;
-      dashPill.textContent = delivered ? "Delivered" : "Pending";
+      dashPill.textContent = delivered ? "Paid" : "Pending";
       dashPill.classList.toggle("wait", !delivered);
       dashNew.classList.toggle("new", idx === 4);
     }
@@ -458,7 +459,7 @@
       ctx.fillStyle = colors.ink; ctx.beginPath(); ctx.arc(s[0], s[1], small ? 11 : 14, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = colors.aqua; ctx.beginPath(); ctx.arc(s[0], s[1], small ? 4 : 5, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = colors["ink-2"]; ctx.textAlign = "center";
-      ctx.fillText("BULK", s[0], s[1] + (small ? 22 : 27));
+      ctx.fillText("MAIN METER", s[0], s[1] + (small ? 22 : 27));
       // tank
       var tk = P("tank"), tw = small ? 30 : 38, th = small ? 34 : 42;
       ctx.fillStyle = colors.card; ctx.strokeStyle = colors["ink-2"]; ctx.lineWidth = 1.2;
@@ -467,16 +468,16 @@
       roundRect(tk[0] - tw / 2 + 3, tk[1] - th / 2 + th * 0.38, tw - 6, th * 0.62 - 3, 3); ctx.fill();
       ctx.globalAlpha = 1;
       ctx.fillStyle = colors["ink-2"]; ctx.textAlign = "left";
-      ctx.fillText("TANK B 62%", tk[0] + tw / 2 + 6, tk[1]);
+      ctx.fillText("TANK 62%", tk[0] + tw / 2 + 6, tk[1]);
       // sensors
       var j2 = P("j2");
       diamond(j2[0] - 22, j2[1] - 20, 6, colors.brass);
       ctx.fillStyle = colors["ink-2"]; ctx.textAlign = "right";
-      ctx.fillText("P-07", j2[0] - 31, j2[1] - 20);
+      ctx.fillText("PRESSURE", j2[0] - 31, j2[1] - 20);
       diamond(lk[0], lk[1] - 24, 6, incident ? colors.signal : colors.brass);
       ctx.textAlign = "center";
       ctx.fillStyle = incident ? colors.signal : colors["ink-2"];
-      ctx.fillText(incident ? "A-03 LEAK" : "A-03", lk[0], lk[1] - 40);
+      ctx.fillText(incident ? "LEAK HEARD" : "LISTENING", lk[0], lk[1] - 40);
     }
     function roundRect(x, y, w, h, r) {
       ctx.beginPath();
@@ -550,14 +551,14 @@
     x: [0, 6], y: [1.5, 3.5], xt: [0, 2, 4, 6], yt: [1.5, 2, 2.5, 3, 3.5],
     yf: function (v) { return v.toFixed(1); },
     series: [{ data: pressure, area: true }],
-    notes: [{ x: 2.42, y: 2.3, text: "02:15  −0.9 bar", dx: 12, dy: 18 }]
+    notes: [{ x: 2.42, y: 2.3, text: "2:15 a.m. pressure drops", dx: 12, dy: 18 }]
   }));
   var nc = $("#nightChart");
   if (nc) drawLines = drawLines.concat(chart(nc, {
     x: [0, 6], y: [0, 1], xt: [0, 2, 4, 6], yt: [0, 0.25, 0.5, 0.75, 1],
     yf: function (v) { return v.toFixed(2); },
     series: [{ data: median, cls: "base" }, { data: unit3, cls: "bad" }],
-    notes: [{ x: 3, y: 0.42, text: "0.4 L/min all night ≈ 600 L a day", dx: 0, dy: -16, anchor: "middle" }]
+    notes: [{ x: 3, y: 0.42, text: "Never stops: about 600 litres a day", dx: 0, dy: -16, anchor: "middle" }]
   }));
 
   (function netScene() {
@@ -572,10 +573,10 @@
       if (now !== incident) {
         incident = now;
         alertEl.classList.toggle("is-leak", incident);
-        at.textContent = incident ? "Suspected leak between J-2 and J-3" : "All sensors normal";
+        at.textContent = incident ? "Possible burst pipe near Block D" : "All quiet across the site";
         ax.textContent = incident
-          ? "Pressure at P-07 fell from 3.2 to 2.3 bar at 02:15. Acoustic sensor A-03 hears a leak signature. Valve V-2 can isolate Blocks D to F."
-          : "Pressure 3.2 bar at P-07. Acoustic sensor A-03 quiet.";
+          ? "Water pressure dropped suddenly at 2:15 a.m. and a sensor can hear the leak. You can shut off supply to Blocks D to F from your phone."
+          : "Water pressure is normal and no leak sounds have been heard.";
         ai.setAttribute("d", incident ? "M12 7v6M12 16.5v.5" : "M5 12l5 5 9-10");
         if (window.__smartaNetRedraw) window.__smartaNetRedraw();
       }
@@ -608,24 +609,31 @@
     var views = {
       landlord: {
         title: "Kilimani Court · 24 units",
-        kpis: [["Collected, Oct", "KSh 184,500"], ["Meters online", "23 / 24"], ["Open alerts", "2", "warn"]],
-        head: ["Unit", "Credit", "Today", "Valve", "Status"],
-        rows: [["1A", "8.2 m³", "210 L", "Open", pill("", "OK")], ["3B", "0.6 m³", "145 L", "Open", pill("low", "Low credit")],
-          ["3C", "4.9 m³", "612 L", "Open", pill("alarm", "Night flow")], ["5A", "0.0 m³", "0 L", "Closed", pill("", "Vacant")]]
+        kpis: [["Collected, Oct", "KSh 184,500"], ["Owed to you", "KSh 0"], ["Needs attention", "2", "warn"]],
+        head: ["Unit", "Credit left", "Today", "Water", "Status"],
+        rows: [["1A", "8,200 L", "210 L", "On", pill("", "OK")], ["3B", "600 L", "145 L", "On", pill("low", "Topping up soon")],
+          ["3C", "4,900 L", "612 L", "On", pill("alarm", "Possible leak")], ["5A", "0 L", "0 L", "Off", pill("", "Vacant")]]
       },
       manager: {
-        title: "Portfolio · 6 properties",
-        kpis: [["Collected, Oct", "KSh 1.12M"], ["Units", "212"], ["Open alerts", "5", "warn"]],
-        head: ["Property", "Units", "Collected", "Online", "Alerts"],
-        rows: [["Kilimani Court", "24", "KSh 184,500", "23", pill("alarm", "2")], ["Ngong Rd Flats", "48", "KSh 251,000", "48", pill("", "0")],
-          ["Ruaka Heights", "60", "KSh 298,200", "59", pill("low", "1")], ["Syokimau Park", "36", "KSh 167,900", "36", pill("alarm", "2")]]
+        title: "Your portfolio · 6 buildings",
+        kpis: [["Collected, Oct", "KSh 1.12M"], ["Units", "212"], ["Needs attention", "5", "warn"]],
+        head: ["Building", "Units", "Collected", "Statement", "Alerts"],
+        rows: [["Kilimani Court", "24", "KSh 184,500", "Sent", pill("alarm", "2")], ["Ngong Rd Flats", "48", "KSh 251,000", "Sent", pill("", "0")],
+          ["Ruaka Heights", "60", "KSh 298,200", "Sent", pill("low", "1")], ["Syokimau Park", "36", "KSh 167,900", "Sent", pill("alarm", "2")]]
+      },
+      developer: {
+        title: "Riverside Gardens · phase 2",
+        kpis: [["Homes metered", "120 / 120"], ["Handed over", "86"], ["Needs attention", "1", "warn"]],
+        head: ["Block", "Homes", "Metered", "Occupied", "Status"],
+        rows: [["A", "30", "30", "28", pill("", "Live")], ["B", "30", "30", "26", pill("", "Live")],
+          ["C", "30", "30", "22", pill("low", "1 tank low")], ["D", "30", "30", "10", pill("", "Handing over")]]
       },
       wsp: {
-        title: "Zone 4 · water balance, Oct",
-        kpis: [["Bulk supplied", "18,420 m³"], ["Billed", "14,610 m³"], ["Non-revenue", "20.7%", "warn"]],
-        head: ["DMA", "In (m³)", "Sold (m³)", "Loss", "Status"],
-        rows: [["4-A", "4,980", "4,310", "13%", pill("", "Normal")], ["4-B", "5,220", "3,640", "30%", pill("alarm", "Investigate")],
-          ["4-C", "3,870", "3,350", "13%", pill("", "Normal")], ["4-D", "4,350", "3,310", "24%", pill("low", "Watch")]]
+        title: "Zone 4 · October",
+        kpis: [["Water supplied", "18,420 m³"], ["Water paid for", "14,610 m³"], ["Lost", "20.7%", "warn"]],
+        head: ["Area", "Supplied", "Paid for", "Lost", "Status"],
+        rows: [["4-A", "4,980 m³", "4,310 m³", "13%", pill("", "Normal")], ["4-B", "5,220 m³", "3,640 m³", "30%", pill("alarm", "Investigate")],
+          ["4-C", "3,870 m³", "3,350 m³", "13%", pill("", "Normal")], ["4-D", "4,350 m³", "3,310 m³", "24%", pill("low", "Watch")]]
       }
     };
     function show(tab) {
