@@ -27,7 +27,14 @@ npm run build      # outputs both pages to dist/
 
 Hosting needs one rewrite so deep links inside the tenant app load it: `/tenant/*` to
 `/tenant/index.html`. `public/_redirects` already does this on Netlify; add the equivalent rule on
-other hosts.
+other hosts. `_redirects` also sends the old app URLs (`/auth`, `/purchase`, `/bills`, `/profile`)
+to their `/tenant/` equivalents.
+
+The tenant app's service worker is `/tenant-sw.js`, scoped to `/tenant/` and registered from
+`src/main.tsx`, so it never serves the landing page. `public/sw.js` is a clean-up worker: browsers
+that still hold the old site-wide worker fetch it as an update, and it removes itself and reloads
+them onto the landing page. Keep it deployed for a few months, until returning visitors have
+passed through it.
 
 ## Before launch
 
