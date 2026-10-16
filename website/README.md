@@ -4,7 +4,9 @@ Static landing page for the Smarta prepaid smart water platform. No build step a
 
 ```
 website/
-  index.html         page markup and copy
+  index.html         page markup and copy (analog dial meter)
+  digital.html       variant with the digital box meter and in-house keypad unit (CIU)
+  assets/digital.css styles for the digital meter, keypad unit and their drawings
   assets/styles.css  design tokens (light and dark) and layout
   assets/main.js     scroll scenes, live demo meter, network map, charts, calculator, form
 ```

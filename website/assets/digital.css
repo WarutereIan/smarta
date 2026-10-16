@@ -1,0 +1,321 @@
+/* Digital edition: a box-bodied prepaid meter with a flip lid and LCD dial,
+   plus the in-house keypad unit (CIU) the tenant types tokens into.
+   Hardware colours are the objects' own and stay fixed in both themes. */
+:root {
+  --hw-body: #f6f8f8;
+  --hw-body-edge: #d5dddd;
+  --hw-base: #123a4a;
+  --hw-dial: #0e4f5f;
+  --hw-dial-ring: #2a7f91;
+  --hw-ciu: #c9d0d3;
+  --hw-ciu-edge: #a9b2b6;
+  --hw-key: #263034;
+  --hw-key-ink: #f1f4f4;
+  --hw-led-credit: #2fbf71;
+  --hw-led-alarm: #e0483a;
+  --hw-led-comm: #f2b134;
+}
+
+.meter-stage.is-digital { --dw: min(490px, 92vw); padding-top: 0; }
+.meter-stage.is-digital .pipe { top: calc(var(--dw) * 0.47); }
+
+.dstage {
+  position: relative;
+  z-index: 1;
+  width: var(--dw);
+  max-width: 100%;
+  aspect-ratio: 540 / 470;
+  container-type: inline-size;
+  transition: transform 600ms var(--ease-out);
+}
+.js .meter-stage.is-digital .dstage { transform: translateY(14px); }
+.loaded .meter-stage.is-digital .dstage { transform: none; }
+
+/* lid, open behind the body */
+.d-lid {
+  position: absolute;
+  left: 14%;
+  top: 4%;
+  width: 40%;
+  height: 30%;
+  border-radius: 38% 38% 8% 8% / 42% 42% 8% 8%;
+  background: linear-gradient(170deg, rgba(160, 222, 230, 0.72), rgba(95, 190, 205, 0.5));
+  border: 1.5px solid rgba(15, 122, 141, 0.45);
+  transform: perspective(600px) rotateX(18deg) rotate(-6deg);
+  transform-origin: 50% 100%;
+  box-shadow: inset 0 6px 14px rgba(255, 255, 255, 0.45);
+}
+.d-lid::after {
+  content: "";
+  position: absolute;
+  left: 18%; right: 18%; bottom: -5%;
+  height: 9%;
+  border-radius: 4px;
+  background: rgba(15, 122, 141, 0.35);
+}
+
+/* brass couplings on the pipe */
+.d-nut {
+  position: absolute;
+  top: 42%;
+  width: 7%;
+  height: 11%;
+  background: linear-gradient(180deg, #f0cd80, #b9862a 55%, #8a5d14);
+  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
+}
+.d-nut.l { left: 1.5%; }
+.d-nut.r { left: 59.5%; }
+.d-tail {
+  position: absolute;
+  top: 43.5%;
+  height: 8%;
+  width: 4%;
+  background: repeating-linear-gradient(90deg, #d9a952 0 2px, #9a6a1c 2px 4px);
+  border-radius: 2px;
+}
+.d-tail.l { left: 7.5%; }
+.d-tail.r { left: 56.5%; }
+
+/* body */
+.d-body {
+  position: absolute;
+  left: 10%;
+  top: 27%;
+  width: 48%;
+  height: 40%;
+  border-radius: 7cqw;
+  background: linear-gradient(180deg, #ffffff, var(--hw-body) 60%, #e9eeee);
+  border: 1px solid var(--hw-body-edge);
+  box-shadow: 0 28px 40px -26px rgba(11, 39, 48, 0.55);
+  overflow: hidden;
+}
+.d-base {
+  position: absolute;
+  left: 10%;
+  top: 62%;
+  width: 48%;
+  height: 12%;
+  border-radius: 0 0 5cqw 5cqw;
+  background: linear-gradient(180deg, #1b4d60, var(--hw-base));
+  box-shadow: 0 18px 30px -18px rgba(11, 39, 48, 0.6);
+}
+.d-body-label {
+  position: absolute;
+  left: 7%;
+  top: 14%;
+  width: 34%;
+  display: grid;
+  gap: 1.4cqw;
+  font-family: var(--f-display);
+  font-stretch: 80%;
+  font-weight: 600;
+  font-size: 2.1cqw;
+  line-height: 1.2;
+  color: #445a60;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.d-barcode {
+  height: 4cqw;
+  background: repeating-linear-gradient(90deg, #22313a 0 1px, transparent 1px 3px, #22313a 3px 5px, transparent 5px 6px, #22313a 6px 7px, transparent 7px 9px);
+  opacity: 0.75;
+}
+.d-dial {
+  position: absolute;
+  right: 7%;
+  top: 9%;
+  width: 46%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 30%, #1d6b7c, var(--hw-dial) 70%);
+  box-shadow: 0 0 0 1.2cqw var(--hw-dial-ring), inset 0 2px 8px rgba(0,0,0,0.35);
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 1.2cqw;
+}
+.d-dial .brand-mini {
+  font: 800 2.2cqw/1 var(--f-display);
+  font-stretch: 125%;
+  letter-spacing: 0.04em;
+  color: #dff3f6;
+}
+.d-lcd {
+  width: 74%;
+  padding: 1cqw 1.4cqw;
+  border-radius: 1cqw;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--lcd) 88%, #fff), var(--lcd));
+  color: var(--lcd-ink);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.3);
+  font-family: var(--f-display);
+  font-stretch: 75%;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+.d-lcd .row { display: flex; justify-content: space-between; align-items: baseline; gap: 1cqw; font-size: 1.7cqw; }
+.d-lcd .big { font-size: 4.4cqw; letter-spacing: 0.01em; }
+.d-lcd .big small { font-size: 1.8cqw; text-transform: none; }
+.d-ir { display: flex; gap: 0.8cqw; }
+.d-ir i { width: 1.6cqw; height: 1.6cqw; border-radius: 50%; background: #0a2f38; box-shadow: inset 0 0 0 1px #3d8796; }
+.d-seal {
+  position: absolute;
+  left: 30%;
+  top: 70%;
+  width: 3.2cqw;
+  height: 3.2cqw;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ff7a6b, #c5392b 70%);
+  box-shadow: 0 0 0 0.5cqw rgba(255,255,255,0.7);
+}
+.d-seal::before {
+  content: "";
+  position: absolute;
+  right: 60%;
+  top: 45%;
+  width: 7cqw;
+  height: 0.4cqw;
+  background: #8b9599;
+  transform: rotate(-12deg);
+  transform-origin: 100% 50%;
+}
+
+/* radio link between meter and keypad unit */
+.d-link {
+  position: absolute;
+  left: 56%;
+  top: 20%;
+  width: 12%;
+  height: 16%;
+  pointer-events: none;
+}
+.d-link path { fill: none; stroke: var(--aqua); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 2 6; opacity: 0.35; transition: opacity 200ms; }
+.dstage.is-talking .d-link path { opacity: 1; animation: flow 0.6s linear infinite; }
+
+/* the CIU: in-house keypad unit */
+.d-ciu {
+  position: absolute;
+  left: 64%;
+  top: 4%;
+  width: 35%;
+  height: 92%;
+  border-radius: 4cqw;
+  background: linear-gradient(170deg, #dfe4e6, var(--hw-ciu) 55%, #b9c1c5);
+  border: 1px solid var(--hw-ciu-edge);
+  box-shadow: 0 30px 44px -26px rgba(11, 39, 48, 0.6), inset 0 1px 0 rgba(255,255,255,0.8);
+  padding: 4cqw 3cqw 3cqw;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  gap: 2.2cqw;
+  color: #26353a;
+}
+.d-ciu:focus-visible { outline: 2px solid var(--aqua); outline-offset: 4px; }
+.d-ciu .ciu-brand { font: 800 2.8cqw/1 var(--f-display); font-stretch: 125%; justify-self: center; letter-spacing: 0.02em; }
+.leds { display: flex; justify-content: space-between; font: 600 1.6cqw/1 var(--f-body); }
+.leds span { display: grid; justify-items: center; gap: 0.8cqw; }
+.leds i { width: 1.9cqw; height: 1.9cqw; border-radius: 50%; background: #7e878a; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.25); transition: background-color 120ms, box-shadow 120ms; }
+.leds .credit.on i { background: var(--hw-led-credit); box-shadow: 0 0 8px var(--hw-led-credit); }
+.leds .alarm.on i { background: var(--hw-led-alarm); box-shadow: 0 0 8px var(--hw-led-alarm); }
+.leds .comm.on i { background: var(--hw-led-comm); box-shadow: 0 0 8px var(--hw-led-comm); }
+.ciu-lcd {
+  border-radius: 1.4cqw;
+  padding: 1.6cqw 1.8cqw;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--lcd) 88%, #fff), var(--lcd));
+  color: var(--lcd-ink);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.3), inset 0 3px 6px rgba(0,0,0,0.15);
+  font-family: var(--f-display);
+  font-stretch: 72%;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-transform: uppercase;
+  min-height: 12cqw;
+  display: grid;
+  align-content: center;
+  gap: 0.6cqw;
+  overflow: hidden;
+}
+.ciu-lcd .l1 { font-size: 1.9cqw; display: flex; justify-content: space-between; }
+.ciu-lcd .l2 { font-size: 3.8cqw; white-space: nowrap; letter-spacing: 0.02em; }
+.ciu-lcd small, .d-lcd small { text-transform: none; }
+.keys { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.6cqw; align-content: end; }
+.key {
+  aspect-ratio: 1.25;
+  border: 0;
+  border-radius: 1.4cqw;
+  background: linear-gradient(180deg, #354045, var(--hw-key));
+  color: var(--hw-key-ink);
+  font: 700 3.3cqw/1 var(--f-display);
+  font-stretch: 90%;
+  box-shadow: 0 0.6cqw 0 #12181a, inset 0 1px 0 rgba(255,255,255,0.12);
+  cursor: pointer;
+  transition: transform 80ms, box-shadow 80ms;
+  display: grid;
+  place-items: center;
+}
+.key:active, .key.pressed { transform: translateY(0.5cqw); box-shadow: 0 0.1cqw 0 #12181a; }
+.key svg { width: 3.6cqw; height: 3.6cqw; }
+
+.dchip-flow { top: 14%; left: -3%; }
+.dchip-valve { top: 76%; left: 4%; }
+
+.d-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin-top: 1.2rem; position: relative; z-index: 2; }
+.d-controls .valve-toggle { margin-top: 0; }
+.type-btn {
+  min-height: 48px;
+  padding: 0.45rem 1rem;
+  border-radius: var(--r-s);
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  font: 600 0.95rem/1 var(--f-body);
+  cursor: pointer;
+}
+.type-btn:disabled { opacity: 0.6; cursor: default; }
+.d-sms {
+  margin-top: 0.8rem;
+  font-size: var(--s--1);
+  color: var(--ink-2);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.d-sms .num { color: var(--ink); font-size: 1rem; }
+
+@media (max-width: 560px) {
+  .dchip-flow { left: 0; top: 10%; }
+  .dchip-valve { left: 0; top: 80%; }
+}
+
+/* top-up story: a small keypad unit instead of the brass dial */
+.mini-ciu {
+  width: 70px;
+  padding: 7px 6px 8px;
+  border-radius: 10px;
+  background: linear-gradient(170deg, #dfe4e6, var(--hw-ciu));
+  display: grid;
+  gap: 5px;
+}
+.mini-ciu .leds { font-size: 0; }
+.mini-ciu .leds i { width: 7px; height: 7px; }
+.mini-ciu .mk { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+.mini-ciu .mk i { height: 7px; border-radius: 2px; background: var(--hw-key); }
+@media (max-width: 900px) {
+  .mini-ciu { width: 50px; padding: 5px 4px 6px; gap: 4px; }
+  .mini-ciu .mk i { height: 5px; }
+}
+
+/* cutaway drawing additions */
+.cutaway .hwbody { fill: #f6f8f8; stroke: var(--ink-2); stroke-width: 1.5; }
+.cutaway .hwbase { fill: #123a4a; stroke: var(--ink-2); stroke-width: 1.5; }
+.cutaway .hwdial { fill: #0e4f5f; stroke: #2a7f91; stroke-width: 4; }
+.cutaway .hwlid { fill: rgba(95, 190, 205, 0.35); stroke: var(--aqua); stroke-width: 1.5; }
+.cutaway .hwciu { fill: #c9d0d3; stroke: var(--ink-2); stroke-width: 1.5; }
+.cutaway .hwkey { fill: #263034; }
+.cutaway .link { fill: none; stroke: var(--aqua); stroke-width: 2; stroke-dasharray: 2 6; stroke-linecap: round; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dstage.is-talking .d-link path { animation: none; }
+  .js .meter-stage.is-digital .dstage { transform: none; }
+}

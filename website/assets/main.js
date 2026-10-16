@@ -168,6 +168,129 @@
   })();
 
   /* ---------------------------------------------------------------
+     Digital edition: box meter plus the keypad unit in the house.
+     Type the SMS token, press Enter, and the credit lands once.
+  --------------------------------------------------------------- */
+  (function digitalMeter() {
+    var ds = $("#dstage");
+    if (!ds) return;
+    var stage = $("#meterStage");
+    var TOKEN = "57842210991743063382";
+    var credit = 12.4, flow = 12.4, closed = false, used = false, typed = "", typing = false;
+    var msg = null, msgUntil = 0;
+    var lcdCredit = $("#lcdCredit"), lcdValve = $("#lcdValve");
+    var l1 = $("#ciuL1"), l2 = $("#ciuL2");
+    var ledAlarm = $("#ledAlarm"), ledComm = $("#ledComm");
+    var chipFlow = $("#chipFlow"), chipValve = $("#chipValve"), chipValveWrap = $("#chipValveWrap");
+    var toggle = $("#valveToggle"), toggleLabel = $("#valveToggleLabel"), typeBtn = $("#typeBtn");
+    var ciu = $("#ciu");
+    var keyEls = {};
+    $$(".key", ds).forEach(function (k) { keyEls[k.getAttribute("data-k")] = k; });
+    var visible = true, last = performance.now(), tAcc = 0;
+
+    function group(d) { return d.replace(/(\d{4})(?=\d)/g, "$1 "); }
+    function say(a, b, ms) { msg = [a, b]; msgUntil = performance.now() + (ms || 2400); paint(); }
+    function paint() {
+      lcdCredit.textContent = credit.toFixed(3);
+      chipFlow.textContent = flow.toFixed(1) + " L/min";
+      if (msg && performance.now() < msgUntil) { l1.textContent = msg[0]; l2.innerHTML = msg[1]; return; }
+      msg = null;
+      if (typed) {
+        l1.textContent = "Token " + typed.length + "/20";
+        var g = group(typed);
+        l2.textContent = g.length > 14 ? "…" + g.slice(-14) : g;
+      } else {
+        l1.textContent = "Credit";
+        l2.innerHTML = credit.toFixed(2) + " <small>m³</small>";
+      }
+    }
+    function blinkKey(k) {
+      var el = keyEls[k];
+      if (!el) return;
+      el.classList.add("pressed");
+      setTimeout(function () { el.classList.remove("pressed"); }, 110);
+    }
+    function submit() {
+      if (typed.length < 20) { say("Error", "20 digits"); typed = ""; return; }
+      var t = typed; typed = "";
+      if (t !== TOKEN) { say("Reject", "Bad token"); return; }
+      if (used) { say("Reject", "Used token", 3200); return; }
+      ds.classList.add("is-talking"); ledComm.classList.add("on");
+      say("Checking", "· · ·", 1200);
+      setTimeout(function () {
+        ds.classList.remove("is-talking"); ledComm.classList.remove("on");
+        used = true;
+        credit += 5;
+        say("Accept", "+5.00 <small>m³</small>", 2600);
+        typeBtn.textContent = "Try the same token again";
+      }, reduce ? 200 : 1200);
+    }
+    function press(k) {
+      blinkKey(k);
+      if (msg) { msg = null; }
+      if (k === "back") typed = typed.slice(0, -1);
+      else if (k === "enter") submit();
+      else if (/^\d$/.test(k) && typed.length < 20) typed += k;
+      paint();
+    }
+    $$(".key", ds).forEach(function (k) {
+      k.addEventListener("click", function () { if (!typing) press(k.getAttribute("data-k")); });
+    });
+    ciu.addEventListener("keydown", function (e) {
+      if (typing) return;
+      if (/^\d$/.test(e.key)) { press(e.key); e.preventDefault(); }
+      else if (e.key === "Backspace") { press("back"); e.preventDefault(); }
+      else if (e.key === "Enter") { press("enter"); e.preventDefault(); }
+    });
+    typeBtn.addEventListener("click", function () {
+      if (typing) return;
+      typed = ""; msg = null;
+      if (reduce) { typed = TOKEN; press("enter"); return; }
+      typing = true; typeBtn.disabled = true;
+      var i = 0;
+      (function next() {
+        if (i < TOKEN.length) { press(TOKEN[i++]); setTimeout(next, 70); }
+        else { setTimeout(function () { press("enter"); typing = false; typeBtn.disabled = false; }, 250); }
+      })();
+    });
+
+    toggle.addEventListener("click", function () {
+      closed = !closed;
+      toggle.setAttribute("aria-pressed", String(closed));
+      toggleLabel.textContent = closed ? "Turn the water back on" : "Turn off water to this unit";
+      stage.classList.toggle("is-closed", closed);
+      chipValve.textContent = closed ? "Turning off…" : "Turning on…";
+      lcdValve.textContent = "···";
+      setTimeout(function () {
+        chipValve.textContent = closed ? "Off" : "On";
+        lcdValve.textContent = closed ? "Closed" : "Open";
+        chipValveWrap.classList.toggle("is-alert", closed);
+        ledAlarm.classList.toggle("on", closed);
+        say(closed ? "Valve" : "Valve", closed ? "Closed" : "Open", 1800);
+      }, 1200);
+    });
+
+    function frame(now) {
+      var dt = Math.min(0.1, (now - last) / 1000);
+      last = now; tAcc += dt;
+      if (visible) {
+        var target = closed ? 0 : 12.4 + Math.sin(tAcc * 0.7) * 0.35 + Math.sin(tAcc * 2.3) * 0.12;
+        flow += (target - flow) * Math.min(1, dt * (closed ? 2.2 : 3));
+        if (flow < 0.05) flow = 0;
+        credit = Math.max(0, credit - (flow / 60) * dt / 1000);
+        paint();
+      }
+      requestAnimationFrame(frame);
+    }
+    paint();
+    if (!reduce) requestAnimationFrame(frame);
+    else setInterval(paint, 500);
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }).observe(ds);
+    }
+  })();
+
+  /* ---------------------------------------------------------------
      Hero depth: grid, meter and readouts drift apart as you leave
   --------------------------------------------------------------- */
   (function heroDepth() {
@@ -238,6 +361,7 @@
     var miniCredit = $("#miniCredit");
     var miniValve = $("#miniValve");
     var valveInd = $("#valveInd");
+    var miniComm = $("#miniComm");
     var sms = $("#sms");
     var dashTotal = $("#dashTotal");
     var dashPill = $("#dashPill");
@@ -282,7 +406,8 @@
       if (idx > 3) { credit = 5.3; open = true; }
       miniCredit.textContent = credit.toFixed(3);
       miniValve.textContent = open ? "On" : "Off";
-      valveInd.style.transform = open ? "rotate(0deg)" : "rotate(90deg)";
+      if (valveInd) valveInd.style.transform = open ? "rotate(0deg)" : "rotate(90deg)";
+      if (miniComm) miniComm.classList.toggle("on", (idx === 2 && t > 0.15) || (idx === 3 && t < 0.25));
       sms.classList.toggle("off", !(idx > 2 || (idx === 2 && t > 0.3)));
 
       // D: dashboard
