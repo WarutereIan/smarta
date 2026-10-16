@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Smarta Prepaid Water</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Prepaid water for rental buildings in Kenya. Tenants top up on M-Pesa like electricity tokens, and you get paid before the water is used. No more chasing water bills.">
+<meta name="description" content="Prepaid water for rental buildings in Kenya. Tenants top up on M-Pesa like electricity tokens, and you get paid before the water is used.">
 <meta property="og:title" content="Smarta Prepaid Water">
 <meta property="og:description" content="Never chase a water bill again. Tenants top up on M-Pesa, and the money reaches you before the water flows.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0b2730">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%230b2730'/%3E%3Cpath d='M16 7c3.6 4.6 5.6 7.9 5.6 10.6A5.6 5.6 0 0 1 10.4 17.6C10.4 14.9 12.4 11.6 16 7z' fill='%234cc6d8'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%230b2730'/%3E%3Cpath d='M16 7c3.6 4.6 5.6 7.9 5.6 10.6A5.6 5.6 0 0 1 10.4 17.6C10.4 14.9 12.4 11.6 16 7z' fill='%235fd0de'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Public+Sans:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
@@ -36,7 +36,7 @@
       <a href="#tenants">For tenants</a>
       <a href="#who">Who it's for</a>
       <a href="#calculator">Your numbers</a>
-      <a href="#faq">FAQ</a>
+      <a href="#faq">Questions</a>
     </nav>
     <a class="btn" href="#pilot">Book a site visit</a>
   </div>
@@ -45,22 +45,21 @@
 <main id="top">
 
   <!-- HERO -->
-  <section class="hero" aria-labelledby="hero-title">
+  <section class="hero" id="hero" aria-labelledby="hero-title">
+    <div class="hero-grid-bg" id="heroBg" aria-hidden="true"></div>
     <div class="wrap hero-grid">
+      <h1 id="hero-title">
+        <span class="line"><span>Never chase a</span></span>
+        <span class="line"><span>water bill <em>again.</em></span></span>
+      </h1>
       <div class="hero-copy">
-        <span class="eyebrow fade">Prepaid water for rental buildings · Kenya</span>
-        <h1 id="hero-title">
-          <span class="line"><span>Never chase a</span></span>
-          <span class="line"><span>water bill <em>again.</em></span></span>
-        </h1>
-        <p class="lede fade">Your tenants top up water on M-Pesa, the same way they buy electricity tokens. The money reaches you before a drop is used, and the meter takes care of the rest.</p>
-        <div class="hero-ctas fade">
+        <p class="lede">Tenants top up water on M-Pesa, like electricity tokens. You get paid before a drop is used.</p>
+        <div class="hero-ctas">
           <a class="btn" href="#pilot">Book a site visit
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
           <a class="btn btn-ghost" href="#topup">See how it works</a>
         </div>
-        <p class="hero-note fade">Start with one building. We install the meters and show your tenants how to top up.</p>
       </div>
 
       <div class="meter-stage" id="meterStage">
@@ -71,71 +70,57 @@
           </svg>
         </div>
 
-        <div class="meter" id="heroMeter" role="img" aria-label="A Smarta prepaid water meter showing a live reading, remaining credit and valve status">
+        <div class="meter" id="heroMeter" role="img" aria-label="A Smarta prepaid water meter showing a live reading, remaining credit and whether the water is on">
           <div class="meter-body"><i></i><i></i><i></i><i></i></div>
           <div class="meter-face">
             <div class="face-brand">Smarta · Prepaid water</div>
-            <div class="odo" id="odo" aria-hidden="true"><span class="mono">00482.317</span></div>
+            <div class="odo" id="odo" aria-hidden="true"><span>00482317</span></div>
             <div class="face-units"><span>m³</span><span class="r">litres</span></div>
             <div class="face-mid">
               <div class="star" aria-hidden="true">
                 <svg viewBox="0 0 24 24" id="star"><path d="M12 2l2.2 7.1H22l-6.1 4.4 2.3 7.2L12 16.3l-6.2 4.4 2.3-7.2L2 9.1h7.8z"/></svg>
               </div>
               <div class="lcd" aria-hidden="true">
-                <div class="lcd-row"><span>CREDIT</span><span class="bars"><b></b><b></b><b></b><b></b></span></div>
+                <div class="lcd-row"><span>Credit</span><span class="bars"><b></b><b></b><b></b><b></b></span></div>
                 <div class="lcd-row lcd-big"><span id="lcdCredit">12.400</span><small>m³</small></div>
-                <div class="lcd-row"><span id="lcdValve">VALVE OPEN</span><span>▮▮▮▯</span></div>
+                <div class="lcd-row"><span id="lcdValve">Valve open</span><span>Batt ▮▮▮</span></div>
               </div>
             </div>
-            <div class="face-marks">Q3 2.5 m³/h · R160 · IP67<br>UNIT 4B · KILIMANI COURT</div>
+            <div class="face-marks">Q3 2.5 m³/h · R160 · IP67<br>Unit 4B · Kilimani Court</div>
           </div>
 
-          <div class="chip chip-flow"><small>Using now</small><strong id="chipFlow">12.4 L/min</strong></div>
-          <div class="chip chip-valve" id="chipValveWrap"><small>Water</small><strong><span class="dot"></span><span id="chipValve">On</span></strong></div>
-          <div class="chip chip-signal"><small>Credit left</small><strong id="chipDays">≈ 21 days</strong></div>
-          <div class="chip chip-batt"><small>Last update</small><strong id="chipSync">8 s ago</strong></div>
+          <div class="chip chip-flow">Using now<strong class="num" id="chipFlow">12.4 L/min</strong></div>
+          <div class="chip chip-valve" id="chipValveWrap">Water<strong><span class="dot"></span><span id="chipValve">On</span></strong></div>
+          <div class="chip chip-credit">Credit left<strong class="num">about 21 days</strong></div>
         </div>
 
         <button class="valve-toggle" id="valveToggle" type="button" aria-pressed="false">
           <span id="valveToggleLabel">Turn off water to this unit</span>
           <span class="sw" aria-hidden="true"></span>
         </button>
-        <p class="meter-caption">Try it: this is how you'd close a vacant unit from your phone.</p>
+        <p class="meter-caption">This is how you'd close a vacant unit from your phone.</p>
       </div>
     </div>
   </section>
 
-  <!-- EASE STRIP -->
-  <div class="plate" aria-label="What you get">
-    <div class="wrap plate-in">
-      <div class="plate-item"><b>Paid before use</b><span>Tenants top up on M-Pesa</span></div>
-      <div class="plate-item"><b>Reads itself</b><span>Readings arrive on their own</span></div>
-      <div class="plate-item"><b>Water off in a tap</b><span>Close vacant units remotely</span></div>
-      <div class="plate-item"><b>Leak alerts</b><span>By SMS and in the app</span></div>
-      <div class="plate-item"><b>Fair to the litre</b><span>Every unit pays its own</span></div>
-      <div class="plate-item"><b>Set up for you</b><span>We install and brief tenants</span></div>
-    </div>
-  </div>
-
   <!-- PROBLEM -->
-  <section class="section" id="problem" aria-labelledby="problem-title">
+  <section class="section" id="problem" aria-labelledby="problem-title" style="padding-top:clamp(48px,6vw,96px)">
     <div class="wrap">
-      <div class="section-head rv">
-        <span class="eyebrow">Sound familiar?</span>
+      <div class="section-head">
         <h2 id="problem-title">Postpaid water turns you into the building's debt collector.</h2>
         <p class="lede">Water gets used on day one. You find out what it cost weeks later, and then you still have to collect it.</p>
       </div>
-      <ol class="month" id="month" style="list-style:none;margin:0;padding:0">
-        <li class="day rv"><span class="d">Day 1</span><h3>Water runs in 24 units</h3><p>Nobody knows how much, or where.</p></li>
-        <li class="day rv"><span class="d">Day 30</span><h3>Someone walks the block reading meters</h3><p>Two dials are fogged. One sits behind a locked gate.</p></li>
-        <li class="day rv"><span class="d">Day 35</span><h3>Bills go out and the arguments start</h3><p>Unit 6 says the reading is wrong, and you have nothing to show them.</p></li>
-        <li class="day rv"><span class="d">Day 60</span><h3>You chase the rest by phone</h3><p>Water arrears sit next to rent arrears, and rent wins.</p></li>
-        <li class="day rv"><span class="d">Day 90</span><h3>A tenant moves out owing KSh 3,400</h3><p>Now it's an argument over the deposit, or money you never see.</p></li>
+      <ol class="month" id="month">
+        <li class="day"><span class="d num">Day 1</span><h3>Water runs in 24 units</h3><p>Nobody knows how much, or where.</p></li>
+        <li class="day"><span class="d num">Day 30</span><h3>Someone walks the block reading meters</h3><p>Two dials are fogged. One sits behind a locked gate.</p></li>
+        <li class="day"><span class="d num">Day 35</span><h3>Bills go out and the arguments start</h3><p>Unit 6 says the reading is wrong, and you have nothing to show them.</p></li>
+        <li class="day"><span class="d num">Day 60</span><h3>You chase the rest by phone</h3><p>Water arrears sit next to rent arrears, and rent wins.</p></li>
+        <li class="day"><span class="d num">Day 90</span><h3>A tenant moves out owing KSh 3,400</h3><p>Now it's an argument over the deposit, or money you never see.</p></li>
       </ol>
     </div>
   </section>
 
-  <!-- STATEMENT -->
+  <!-- THE TURN -->
   <section class="statement" aria-label="What prepaid changes">
     <div class="wrap">
       <p id="statement" data-hl="13,19">Prepaid puts the money first. Tenants top up, the meter counts down, and you stop being the building's debt collector.</p>
@@ -146,9 +131,8 @@
   <section class="band-night section" id="topup" aria-labelledby="topup-title">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">How it works</span>
         <h2 id="topup-title">As easy as buying electricity tokens.</h2>
-        <p class="lede">Follow one KSh 500 top-up from a tenant's phone to your account. Scroll to play it.</p>
+        <p class="lede">Follow one KSh 500 top-up from a tenant's phone to your account.</p>
       </div>
 
       <div class="topup-grid">
@@ -188,7 +172,7 @@
             </svg>
 
             <div class="station" data-station="0">
-              <div class="station-label"><span>M-Pesa</span><span class="ok">Paid ✓</span></div>
+              <div class="station-label"><span>M-Pesa</span><span class="ok">Paid</span></div>
               <div class="phone">
                 <div class="stk">
                   <span>Pay <b>KSh 500.00</b> to <b>SMARTA WATER</b>, account <b>4B</b>?</span>
@@ -202,7 +186,7 @@
             </div>
 
             <div class="station" data-station="1">
-              <div class="station-label"><span>Water token</span><span class="ok">Ready ✓</span></div>
+              <div class="station-label"><span>Water token</span><span class="ok">Ready</span></div>
               <div class="token" id="token"><span class="g">5784</span><span class="g">2210</span><span class="g">9917</span><span class="g">4306</span><span class="g">3382</span></div>
               <div class="token-meta">
                 <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Works on Wanjiru's meter only</span>
@@ -211,27 +195,27 @@
             </div>
 
             <div class="station" data-station="3">
-              <div class="station-label"><span>Your dashboard</span><span class="ok">Paid in ✓</span></div>
-              <div class="dash-total"><b id="dashTotal">KSh 13,000</b><span>collected today, Kilimani Court</span></div>
+              <div class="station-label"><span>Your dashboard</span><span class="ok">Paid in</span></div>
+              <div class="dash-total"><b class="num" id="dashTotal">KSh 13,000</b><span>collected today, Kilimani Court</span></div>
               <div class="dash-rows">
-                <div class="dash-row new" id="dashNew"><span class="u">4B</span><span class="t">Wanjiru K. · KSh 500</span><span class="pill" id="dashPill">Paid</span></div>
-                <div class="dash-row"><span class="u">2A</span><span class="t">Otieno M. · KSh 1,000</span><span class="pill">Paid</span></div>
-                <div class="dash-row"><span class="u">6C</span><span class="t">Achieng P. · KSh 300</span><span class="pill">Paid</span></div>
+                <div class="dash-row new" id="dashNew"><span class="u">4B</span><span class="t">Wanjiru K. · KSh 500</span><span class="tag" id="dashPill">Paid</span></div>
+                <div class="dash-row"><span class="u">2A</span><span class="t">Otieno M. · KSh 1,000</span><span class="tag">Paid</span></div>
+                <div class="dash-row"><span class="u">6C</span><span class="t">Achieng P. · KSh 300</span><span class="tag">Paid</span></div>
               </div>
             </div>
 
             <div class="station" data-station="2">
-              <div class="station-label"><span>Meter · Unit 4B</span><span class="ok">Loaded ✓</span></div>
+              <div class="station-label"><span>Meter, Unit 4B</span><span class="ok">Loaded</span></div>
               <div class="mini-meter">
                 <div class="mini-dial"><div>
                   <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="14"/><g class="valve-ind" id="valveInd"><path d="M20 8v24"/></g></svg>
                 </div></div>
                 <div class="lcd lcd-sm">
-                  <div class="lcd-row"><span>CREDIT</span><span id="miniValve">OFF</span></div>
+                  <div class="lcd-row"><span>Credit</span><span id="miniValve">Off</span></div>
                   <div class="lcd-row lcd-big"><span id="miniCredit">5.300</span><small>m³</small></div>
                 </div>
               </div>
-              <div class="sms" id="sms">SMS: Your water token is <span class="mono">5784 2210 9917 4306 3382</span>. 5,000 litres loaded.</div>
+              <div class="sms" id="sms">SMS: Your water token is <span class="num">5784 2210 9917 4306 3382</span>. 5,000 litres loaded.</div>
             </div>
           </div>
         </div>
@@ -240,49 +224,46 @@
   </section>
 
   <!-- TENANTS -->
-  <section class="section" id="tenants" aria-labelledby="ten-title">
+  <section class="section ten" id="tenants" aria-labelledby="ten-title">
     <div class="wrap ten-grid">
       <div class="ten-copy">
-        <div class="section-head rv" style="margin-bottom:0">
-          <span class="eyebrow">For your tenants</span>
+        <div class="section-head">
           <h2 id="ten-title">Tenants pay for their own water, and nobody else's.</h2>
           <p class="lede">Shared bills and estimates are what tenants complain about most. With Smarta, every unit pays for exactly what it uses and can see every litre.</p>
         </div>
-        <ul class="ticks ten-ticks">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg><div><b>Top up like electricity</b><span>On M-Pesa, any time, from any phone.</span></div></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg><div><b>Fair to the litre</b><span>Each unit has its own meter, so nobody pays for a neighbour's leak.</span></div></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg><div><b>A warning before it runs out</b><span>An SMS arrives when credit is low, with days to spare.</span></div></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg><div><b>Usage on their phone</b><span>The app shows daily use, so a heavy week never comes as a surprise.</span></div></li>
+        <ul class="rows">
+          <li><b>Top up like electricity</b><span>On M-Pesa, any time, from any phone.</span></li>
+          <li><b>Fair to the litre</b><span>Each unit has its own meter, so nobody pays for a neighbour's leak.</span></li>
+          <li><b>A warning before it runs out</b><span>An SMS arrives when credit is low, with days to spare.</span></li>
+          <li><b>Usage on their phone</b><span>The app shows daily use, so a heavy week never comes as a surprise.</span></li>
         </ul>
       </div>
       <div class="sms-stack" aria-label="Example messages a tenant receives">
-        <div class="bubble rv"><span class="from">SMARTA · 08:14</span>Payment of KSh 500 received. Your token 5784 2210 9917 4306 3382 has been loaded. 5,000 litres added to Unit 4B.</div>
-        <div class="bubble rv"><span class="from">SMARTA · Thu 19:02</span>You have 800 litres left, about 2 days at your usual use. Top up on M-Pesa any time.</div>
-        <div class="bubble warn rv"><span class="from">SMARTA · Sat 06:30</span>Your water use last night was 3 times your usual. Check for a running tap or toilet.</div>
+        <div class="bubble"><span class="from">Smarta, 08:14</span>Payment of KSh 500 received. Your token 5784 2210 9917 4306 3382 has been loaded. 5,000 litres added to Unit 4B.</div>
+        <div class="bubble"><span class="from">Smarta, Thursday 19:02</span>You have 800 litres left, about 2 days at your usual use. Top up on M-Pesa any time.</div>
+        <div class="bubble warn"><span class="from">Smarta, Saturday 06:30</span>Your water use last night was 3 times your usual. Check for a running tap or toilet.</div>
         <span class="example">Example messages</span>
       </div>
     </div>
   </section>
 
   <!-- METER -->
-  <section class="section" id="meter" aria-labelledby="meter-title" style="padding-top:0">
+  <section class="section meter-sec" id="meter" aria-labelledby="meter-title">
     <div class="wrap">
-      <div class="section-head rv">
-        <span class="eyebrow">The meter</span>
+      <div class="section-head">
         <h2 id="meter-title">Fitted once, then it looks after itself.</h2>
-        <p class="lede">Every unit gets a smart prepaid water meter that reads itself, takes top-ups and turns its own water on and off. Tap a feature to see where it lives.</p>
+        <p class="lede">Every unit gets a smart prepaid water meter that reads itself, takes top-ups and turns its own water on and off. Pick a part to see what it does.</p>
       </div>
 
-      <div class="anatomy-grid">
-        <figure class="cutaway" id="cutaway" style="margin:0">
-          <div class="cut-head"><span>Inside the meter</span><span>One per unit</span></div>
-          <svg viewBox="0 0 560 360" role="img" aria-labelledby="cut-title">
+      <figure class="cutaway" id="cutaway">
+        <div class="cut-draw">
+          <svg viewBox="0 0 560 330" role="img" aria-labelledby="cut-title">
             <title id="cut-title">Drawing of a Smarta prepaid water meter showing the valve, display, mobile connection, battery, flow sensor and seals</title>
             <rect class="base" x="8" y="236" width="104" height="40" rx="4"/>
             <rect class="base" x="440" y="236" width="112" height="40" rx="4"/>
             <line class="water" x1="10" y1="256" x2="550" y2="256"/>
-            <text class="lbl" x="12" y="300">WATER IN</text>
-            <text class="lbl" x="476" y="300">TO THE UNIT</text>
+            <text class="lbl" x="12" y="302">Water in</text>
+            <text class="lbl" x="476" y="302">To the unit</text>
 
             <g class="part" data-part="flow">
               <rect class="brass" x="112" y="214" width="196" height="84" rx="16"/>
@@ -297,7 +278,7 @@
               <rect class="shell" x="342" y="160" width="64" height="66" rx="8"/>
               <rect class="base" x="352" y="146" width="44" height="14" rx="3"/>
               <rect class="hl" x="302" y="140" width="144" height="152" rx="14"/>
-              <text class="lbl" x="352" y="198">VALVE</text>
+              <text class="lbl" x="355" y="198">Valve</text>
               <circle class="ring" cx="374" cy="256" r="24"/>
             </g>
 
@@ -315,7 +296,7 @@
             </g>
 
             <rect class="lcdfill" x="146" y="110" width="128" height="34" rx="5"/>
-            <text x="156" y="132" style="font:600 14px var(--f-mono);fill:var(--lcd-ink)">12.400 m³</text>
+            <text class="lcdtxt" x="158" y="133">12.400 m³</text>
             <g class="ink">
               <circle cx="160" cy="160" r="4"/><circle cx="176" cy="160" r="4"/><circle cx="192" cy="160" r="4"/><circle cx="208" cy="160" r="4"/>
               <circle cx="224" cy="160" r="4"/><circle cx="240" cy="160" r="4"/><circle cx="256" cy="160" r="4"/>
@@ -350,67 +331,34 @@
               <circle class="ring" cx="318" cy="30" r="10"/>
             </g>
           </svg>
-          <figcaption class="cut-caption" aria-live="polite"><b id="cutTitle">Close a vacant unit from your phone</b><span id="cutText">Shut off water when a tenant moves out, and open it again for the next one.</span></figcaption>
-        </figure>
+          <figcaption class="cut-caption" aria-live="polite"><b id="cutTitle">Close a vacant unit from your phone</b><span id="cutText">Shut off water when a tenant moves out, and open it again for the next one. You'll see the moment it has closed.</span></figcaption>
+        </div>
 
-        <ul class="feat-list" id="featList">
-          <li class="feat on" data-part="valve" tabindex="0">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 14h5l2-3h4l2 3h5"/><path d="M12 11V5M8 5h8"/></svg></span>
-            <h3>Close a vacant unit from your phone</h3>
-            <p>Shut off water when a tenant moves out, and open it again for the next one. You'll see the moment it has closed.</p>
-          </li>
-          <li class="feat" data-part="gsm" tabindex="0">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 20V9"/><path d="M8.5 12.5a5 5 0 0 1 7 0M6 10a8.5 8.5 0 0 1 12 0"/></svg></span>
-            <h3>Readings arrive by themselves</h3>
-            <p>The meter reports over the mobile network. Nobody has to walk the building with a notebook again.</p>
-          </li>
-          <li class="feat" data-part="tamper" tabindex="0">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M12 8v5M12 16v.5"/></svg></span>
-            <h3>Know if anyone tampers with it</h3>
-            <p>Opening the cover or holding a magnet to the meter sends you an alert straight away.</p>
-          </li>
-          <li class="feat" data-part="flow" tabindex="0">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 9c3 0 3 2 6 2s3-2 6-2 3 2 6 2M3 15c3 0 3 2 6 2s3-2 6-2 3 2 6 2"/></svg></span>
-            <h3>Spots a running toilet at 3 a.m.</h3>
-            <p>The meter can tell normal use from a leak, so you hear about it long before the water is wasted.</p>
-          </li>
-          <li class="feat" data-part="memory" tabindex="0">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></span>
-            <h3>Never loses a reading</h3>
-            <p>If the network drops, the meter keeps its own record and sends it as soon as it's back.</p>
-          </li>
-          <li class="feat" data-part="battery" tabindex="0">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="8" width="16" height="9" rx="2"/><path d="M21 11v3"/><path d="M6 11h7v3H6z" fill="currentColor"/></svg></span>
-            <h3>Five years on one battery</h3>
-            <p>You'll see the battery level on your dashboard long before it matters.</p>
-          </li>
-          <li class="feat" data-part="ip67" tabindex="0">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3c3.5 4.4 5.5 7.6 5.5 10.3a5.5 5.5 0 0 1-11 0C6.5 10.6 8.5 7.4 12 3z"/></svg></span>
-            <h3>Survives a flooded meter chamber</h3>
-            <p>Sealed against dust and water, for chambers that fill up in the long rains.</p>
-          </li>
-          <li class="feat" data-part="firmware" tabindex="0">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></span>
-            <h3>Gets better over time</h3>
-            <p>Improvements arrive over the air, without anyone visiting the building.</p>
-          </li>
+        <ul class="parts" id="parts">
+          <li><button class="part-btn" type="button" data-part="valve" aria-pressed="true" data-title="Close a vacant unit from your phone" data-text="Shut off water when a tenant moves out, and open it again for the next one. You'll see the moment it has closed.">Water on and off</button></li>
+          <li><button class="part-btn" type="button" data-part="gsm" aria-pressed="false" data-title="Readings arrive by themselves" data-text="The meter reports over the mobile network. Nobody has to walk the building with a notebook again.">Reads itself</button></li>
+          <li><button class="part-btn" type="button" data-part="tamper" aria-pressed="false" data-title="Know if anyone tampers with it" data-text="Opening the cover or holding a magnet to the meter sends you an alert straight away.">Tamper alerts</button></li>
+          <li><button class="part-btn" type="button" data-part="flow" aria-pressed="false" data-title="Spots a running toilet at 3 a.m." data-text="The meter can tell normal use from a leak, so you hear about it long before the water is wasted.">Leak spotting</button></li>
+          <li><button class="part-btn" type="button" data-part="memory" aria-pressed="false" data-title="Never loses a reading" data-text="If the network drops, the meter keeps its own record and sends it as soon as it's back.">Offline memory</button></li>
+          <li><button class="part-btn" type="button" data-part="battery" aria-pressed="false" data-title="Five years on one battery" data-text="You'll see the battery level on your dashboard long before it matters.">Five-year battery</button></li>
+          <li><button class="part-btn" type="button" data-part="ip67" aria-pressed="false" data-title="Survives a flooded meter chamber" data-text="Sealed against dust and water, for chambers that fill up in the long rains.">Sealed body</button></li>
+          <li><button class="part-btn" type="button" data-part="firmware" aria-pressed="false" data-title="Gets better over time" data-text="Improvements arrive over the air, without anyone visiting the building.">Remote updates</button></li>
         </ul>
-      </div>
+      </figure>
     </div>
   </section>
 
   <!-- NETWORK -->
-  <section class="section" id="network" aria-labelledby="net-title" style="padding-top:0">
+  <section class="section" id="network" aria-labelledby="net-title">
     <div class="wrap">
-      <div class="section-head rv">
-        <span class="eyebrow">Leak alerts</span>
+      <div class="section-head">
         <h2 id="net-title">Find the leak before the bill does.</h2>
         <p class="lede">Add sensors to your pipes and tanks and Smarta watches them around the clock. When something goes wrong, you get a message saying what happened and where.</p>
       </div>
 
       <div class="net-grid" id="netGrid">
         <div class="panel netmap">
-          <div class="panel-head"><h3>Kilimani Court water supply</h3><span class="mono">LIVE · EXAMPLE SITE</span></div>
+          <div class="panel-head"><h3>Kilimani Court water supply</h3><span class="label">Example site</span></div>
           <canvas id="netCanvas" aria-label="Animated map of a building's water supply, from the main meter and tank to six blocks. A leak appears on the main pipe." role="img"></canvas>
           <div class="alert" id="netAlert" aria-live="polite">
             <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12l5 5 9-10" id="alertIcon"/></svg></span>
@@ -419,23 +367,23 @@
         </div>
 
         <div class="panel chart">
-          <div class="panel-head"><h3>A pipe bursts at 2:15 a.m.</h3><span class="mono">WATER PRESSURE · OVERNIGHT</span></div>
+          <div class="panel-head"><h3>A pipe bursts at 2:15 a.m.</h3><span class="label">Water pressure, overnight</span></div>
           <svg id="pressureChart" viewBox="0 0 360 170" aria-label="Water pressure holds steady, then drops sharply at 2:15 a.m. when a pipe bursts"></svg>
         </div>
 
         <div class="panel chart">
-          <div class="panel-head"><h3>A toilet runs all night</h3><span class="mono">LITRES PER MINUTE · OVERNIGHT</span></div>
+          <div class="panel-head"><h3>A toilet runs all night</h3><span class="label">Litres per minute, overnight</span></div>
           <svg id="nightChart" viewBox="0 0 360 170" aria-label="Water use in Unit 3 never drops to zero overnight, while the rest of the block uses almost nothing"></svg>
           <div class="legend"><span><i></i>Unit 3</span><span><i class="b"></i>Rest of the block</span></div>
         </div>
       </div>
 
-      <div class="sensors">
-        <div class="sensor rv"><span class="k">Pressure</span><h3>Burst pipes show up straight away</h3><p>Pressure sensors on the main pipes notice a burst the moment it happens.</p></div>
-        <div class="sensor rv"><span class="k">Sound</span><h3>Leaks make a noise. Smarta listens.</h3><p>Listening sensors pick up the hiss of escaping water through the pipe wall.</p></div>
-        <div class="sensor rv"><span class="k">Tanks</span>
-          <div class="tank-wrap">
-            <div class="tank" aria-hidden="true">
+      <dl class="sensors">
+        <div class="sensor"><dt>Pressure</dt><dd><b>Burst pipes show up straight away</b><span>Pressure sensors on the main pipes notice a burst the moment it happens.</span></dd></div>
+        <div class="sensor"><dt>Sound</dt><dd><b>Leaks make a noise. Smarta listens.</b><span>Listening sensors pick up the hiss of escaping water through the pipe wall.</span></dd></div>
+        <div class="sensor"><dt>Tanks</dt><dd>
+          <span class="tank-line">
+            <span class="tank" aria-hidden="true">
               <svg viewBox="0 0 92 120">
                 <defs><clipPath id="tankClip"><rect x="8" y="10" width="76" height="102" rx="10"/></clipPath></defs>
                 <rect class="shell" x="8" y="10" width="76" height="102" rx="10"/>
@@ -443,139 +391,114 @@
                   <path class="wv2" id="wave2" d="M0 50 Q 23 44 46 50 T 92 50 T 138 50 T 184 50 V 130 H0 Z"/>
                   <path class="wv" id="wave1" d="M0 52 Q 23 58 46 52 T 92 52 T 138 52 T 184 52 V 130 H0 Z"/>
                 </g>
-                <g class="tick"><line x1="84" y1="35" x2="90" y2="35"/><line x1="84" y1="61" x2="90" y2="61"/><line x1="84" y1="87" x2="90" y2="87"/></g>
               </svg>
-            </div>
-            <div class="tank-read"><b>6,200 L</b><span>left in the rooftop tank, about 9 hours at today's use.</span></div>
-          </div>
-        </div>
-        <div class="sensor rv"><span class="k">Night checks</span><h3>2 a.m. tells the truth</h3><p>Most homes use almost nothing between 2 and 4 a.m. A unit that keeps flowing gets flagged.</p></div>
-        <div class="sensor rv"><span class="k">Water lost</span><h3>See what disappears before the tap</h3><p>Smarta compares what enters the building with what the units use, so lost water becomes a number you can fix.</p></div>
-      </div>
+            </span>
+            <span><b class="num">6,200 L</b> left in the rooftop tank, about 9 hours at today's use.</span>
+          </span>
+        </dd></div>
+        <div class="sensor"><dt>Night checks</dt><dd><b>2 a.m. tells the truth</b><span>Most homes use almost nothing between 2 and 4 a.m. A unit that keeps flowing gets flagged.</span></dd></div>
+        <div class="sensor"><dt>Water lost</dt><dd><b>See what disappears before the tap</b><span>Smarta compares what enters the building with what the units use, so lost water becomes a number you can fix.</span></dd></div>
+        <div class="sensor"><dt>Alerts</dt><dd><b>Messages that say what to do</b><span>Every alert names the place and the next step, by SMS and in the app.</span></dd></div>
+      </dl>
     </div>
   </section>
 
   <!-- AUDIENCE -->
-  <section class="section aud" id="who" aria-labelledby="who-title">
+  <section class="section" id="who" aria-labelledby="who-title" style="padding-top:0">
     <div class="wrap">
-      <div class="section-head rv">
-        <span class="eyebrow">Who it's for</span>
+      <div class="section-head">
         <h2 id="who-title">Whoever runs the building, it gets easier.</h2>
       </div>
       <div class="tabs" role="tablist" aria-label="Choose your role">
         <button class="tab" role="tab" id="tab-landlord" aria-controls="panel-landlord" aria-selected="true">Landlords</button>
         <button class="tab" role="tab" id="tab-manager" aria-controls="panel-manager" aria-selected="false" tabindex="-1">Property managers</button>
-        <button class="tab" role="tab" id="tab-developer" aria-controls="panel-developer" aria-selected="false" tabindex="-1">Developers &amp; estates</button>
+        <button class="tab" role="tab" id="tab-developer" aria-controls="panel-developer" aria-selected="false" tabindex="-1">Developers and estates</button>
         <button class="tab" role="tab" id="tab-wsp" aria-controls="panel-wsp" aria-selected="false" tabindex="-1">Water providers</button>
       </div>
 
-      <div class="aud-grid">
-        <div class="aud-copy">
-          <div role="tabpanel" id="panel-landlord" aria-labelledby="tab-landlord">
-            <h3>Get paid for water without asking twice.</h3>
-            <ul class="ticks" style="margin-top:1.2rem">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg><div><b>The money comes first</b><span>Tenants top up on M-Pesa before they use water, so there is nothing left to chase.</span></div></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg><div><b>Move-outs settle themselves</b><span>Nobody leaves owing for water, so deposits go back without an argument.</span></div></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg><div><b>Fewer awkward phone calls</b><span>Every top-up and every litre is on record, for you and the tenant to see.</span></div></li>
-            </ul>
-          </div>
-          <div role="tabpanel" id="panel-manager" aria-labelledby="tab-manager" hidden>
-            <h3>Manage more doors with the same team.</h3>
-            <ul class="ticks" style="margin-top:1.2rem">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg><div><b>Statements that write themselves</b><span>Each landlord gets a monthly summary of collections, use and alerts.</span></div></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg><div><b>Cash stays out of the caretaker's hands</b><span>Every shilling goes through M-Pesa, with a record against the unit.</span></div></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg><div><b>A better offer for landlords</b><span>Add prepaid water to your management package and win buildings with it.</span></div></li>
-            </ul>
-          </div>
-          <div role="tabpanel" id="panel-developer" aria-labelledby="tab-developer" hidden>
-            <h3>Hand over homes with water already sorted.</h3>
-            <ul class="ticks" style="margin-top:1.2rem">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg><div><b>Metered from the first day</b><span>Fit meters during construction and every buyer or tenant starts on prepaid.</span></div></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg><div><b>Water stays out of the service charge</b><span>Each home pays for its own water, so it never ends up in a service-charge dispute.</span></div></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg><div><b>Something to show at viewings</b><span>Buyers and tenants like seeing exactly what they will pay for, and how.</span></div></li>
-            </ul>
-          </div>
-          <div role="tabpanel" id="panel-wsp" aria-labelledby="tab-wsp" hidden>
-            <h3>Collect before the water leaves the reservoir.</h3>
-            <ul class="ticks" style="margin-top:1.2rem">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg><div><b>Revenue where bills go unpaid</b><span>Customers pay before they draw, at homes, kiosks and yard taps.</span></div></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg><div><b>See where water goes missing</b><span>Compare what you supply with what customers use, area by area.</span></div></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg><div><b>Fewer trips to the field</b><span>Readings, disconnections and reconnections happen from the office.</span></div></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="devices" aria-label="Example screens from the Smarta apps">
-          <div class="screen" id="dashScreen">
-            <div class="screen-bar"><i></i><i></i><i></i><span id="screenTitle">Kilimani Court · 24 units</span></div>
-            <div class="kpis" id="kpis">
-              <div class="kpi"><small>Collected, Oct</small><b>KSh 184,500</b></div>
-              <div class="kpi"><small>Owed to you</small><b>KSh 0</b></div>
-              <div class="kpi"><small>Needs attention</small><b class="warn">2</b></div>
-            </div>
-            <div class="tbl">
-              <table>
-                <thead><tr id="tblHead"><th>Unit</th><th>Credit left</th><th>Today</th><th>Water</th><th>Status</th></tr></thead>
-                <tbody id="tblBody">
-                  <tr><td>1A</td><td>8,200 L</td><td>210 L</td><td>On</td><td><span class="pill">OK</span></td></tr>
-                  <tr><td>3B</td><td>600 L</td><td>145 L</td><td>On</td><td><span class="pill low">Topping up soon</span></td></tr>
-                  <tr><td>3C</td><td>4,900 L</td><td>612 L</td><td>On</td><td><span class="pill alarm">Possible leak</span></td></tr>
-                  <tr><td>5A</td><td>0 L</td><td>0 L</td><td>Off</td><td><span class="pill">Vacant</span></td></tr>
-                </tbody>
-              </table>
-            </div>
-            <span class="example">Example data</span>
-          </div>
-          <div class="tphone" aria-label="Tenant app example">
-            <span class="hello">Hi Wanjiru</span>
-            <div class="ring-wrap">
-              <svg viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="50"/><circle class="fg" cx="60" cy="60" r="50" stroke-dasharray="314.16" stroke-dashoffset="113"/></svg>
-              <div><b>3,200 L</b><small>about 6 days left</small></div>
-            </div>
-            <span class="topup">Top up with M-Pesa</span>
-            <div class="mini-bars"><i style="height:48%"></i><i style="height:62%"></i><i style="height:40%"></i><i style="height:74%"></i><i style="height:55%"></i><i style="height:90%"></i><i style="height:66%"></i></div>
-            <div class="mini-days"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
-          </div>
-        </div>
+      <div class="aud-panel" role="tabpanel" id="panel-landlord" aria-labelledby="tab-landlord">
+        <h3>Get paid for water without asking twice.</h3>
+        <table class="ledger">
+          <thead><tr><th scope="col">Today</th><th scope="col">With Smarta</th></tr></thead>
+          <tbody>
+            <tr><td>You split the building's water bill and chase each unit</td><td>Each tenant pays for their own water before using it</td></tr>
+            <tr><td>Someone reads every meter, every month</td><td>Readings arrive on your phone by themselves</td></tr>
+            <tr><td>Tenants move out owing for water</td><td>Nobody can owe, so deposits go back without a fight</td></tr>
+            <tr><td>A leak shows up on next month's bill</td><td>You get a message the night it starts</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="aud-panel" role="tabpanel" id="panel-manager" aria-labelledby="tab-manager" hidden>
+        <h3>Manage more doors with the same team.</h3>
+        <table class="ledger">
+          <thead><tr><th scope="col">Today</th><th scope="col">With Smarta</th></tr></thead>
+          <tbody>
+            <tr><td>Caretakers collect water money in cash</td><td>Every shilling arrives through M-Pesa, matched to a unit</td></tr>
+            <tr><td>Month-end statements are built by hand</td><td>Each landlord gets a monthly statement on its own</td></tr>
+            <tr><td>Turning off water means a site visit</td><td>Water to a unit turns off from the office</td></tr>
+            <tr><td>Water disputes land on your desk</td><td>Tenants see their own usage in the app</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="aud-panel" role="tabpanel" id="panel-developer" aria-labelledby="tab-developer" hidden>
+        <h3>Hand over homes with water already sorted.</h3>
+        <table class="ledger">
+          <thead><tr><th scope="col">Today</th><th scope="col">With Smarta</th></tr></thead>
+          <tbody>
+            <tr><td>Water costs disappear into the service charge</td><td>Each home pays for its own water</td></tr>
+            <tr><td>Meters get retrofitted after handover</td><td>Homes are metered from the day the keys change hands</td></tr>
+            <tr><td>Buyers ask how water will be billed</td><td>You show them, top-up by top-up</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="aud-panel" role="tabpanel" id="panel-wsp" aria-labelledby="tab-wsp" hidden>
+        <h3>Collect before the water leaves the reservoir.</h3>
+        <table class="ledger">
+          <thead><tr><th scope="col">Today</th><th scope="col">With Smarta</th></tr></thead>
+          <tbody>
+            <tr><td>Bills go unpaid in high-arrears areas</td><td>Customers pay before they draw water</td></tr>
+            <tr><td>Water goes missing between reservoir and tap</td><td>Losses show up area by area</td></tr>
+            <tr><td>Crews drive out for readings and disconnections</td><td>Both happen from the office</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
 
   <!-- CALCULATOR -->
-  <section class="section" id="calculator" aria-labelledby="calc-title">
+  <section class="section" id="calculator" aria-labelledby="calc-title" style="padding-top:0">
     <div class="wrap">
-      <div class="section-head rv">
-        <span class="eyebrow">Your numbers</span>
+      <div class="section-head">
         <h2 id="calc-title">How much water money is waiting in your building?</h2>
         <p class="lede">Move the sliders to match one of your properties.</p>
       </div>
       <div class="calc">
         <div class="calc-in">
           <div class="field">
-            <div class="field-top"><label for="cUnits">Units in the building</label><output id="oUnits" for="cUnits">24</output></div>
+            <div class="field-top"><label for="cUnits">Units in the building</label><output class="num" id="oUnits" for="cUnits">24</output></div>
             <input type="range" id="cUnits" min="4" max="400" step="1" value="24">
           </div>
           <div class="field">
-            <div class="field-top"><label for="cBill">Average water bill per unit, per month</label><output id="oBill" for="cBill">KSh 1,200</output></div>
+            <div class="field-top"><label for="cBill">Average water bill per unit, per month</label><output class="num" id="oBill" for="cBill">KSh 1,200</output></div>
             <input type="range" id="cBill" min="200" max="5000" step="50" value="1200">
           </div>
           <div class="field">
-            <div class="field-top"><label for="cLate">Tenants who pay water late</label><output id="oLate" for="cLate">30%</output></div>
+            <div class="field-top"><label for="cLate">Tenants who pay water late</label><output class="num" id="oLate" for="cLate">30%</output></div>
             <input type="range" id="cLate" min="0" max="100" step="5" value="30">
           </div>
           <div class="field">
-            <div class="field-top"><label for="cMonths">How late they pay, on average</label><output id="oMonths" for="cMonths">1.5 months</output></div>
+            <div class="field-top"><label for="cMonths">How late they pay, on average</label><output class="num" id="oMonths" for="cMonths">1.5 months</output></div>
             <input type="range" id="cMonths" min="0.5" max="6" step="0.5" value="1.5">
           </div>
         </div>
         <div class="calc-out" aria-live="polite">
-          <span class="eyebrow">Water money owed to you right now</span>
-          <div class="big-num" id="outArrears">KSh 12,960</div>
+          <span class="label">Water money owed to you right now</span>
+          <div class="big-num num" id="outArrears">KSh 12,960</div>
           <p>With prepaid water, tenants pay before they use it, so this number stays at zero.</p>
           <div class="calc-rows">
-            <div class="calc-row"><span>Meter readings to take each year</span><b><s id="outReads">288</s><span class="to">0</span></b></div>
-            <div class="calc-row"><span>Water bills to send each year</span><b><s id="outBills">288</s><span class="to">0</span></b></div>
-            <div class="calc-row"><span>Water money collected each year</span><b id="outYear">KSh 345,600</b></div>
+            <div class="calc-row"><span>Meter readings to take each year</span><b class="num"><s id="outReads">288</s><span class="to">0</span></b></div>
+            <div class="calc-row"><span>Water bills to send each year</span><b class="num"><s id="outBills">288</s><span class="to">0</span></b></div>
+            <div class="calc-row"><span>Water money collected each year</span><b class="num" id="outYear">KSh 345,600</b></div>
           </div>
           <p class="fine">Estimates from your inputs only. Nothing you enter leaves this page.</p>
         </div>
@@ -584,42 +507,27 @@
   </section>
 
   <!-- GETTING STARTED -->
-  <section class="section start" id="start" aria-labelledby="start-title" style="padding-top:0">
+  <section class="section" id="start" aria-labelledby="start-title" style="padding-top:0">
     <div class="wrap">
-      <div class="section-head rv">
-        <span class="eyebrow">Getting started</span>
+      <div class="section-head">
         <h2 id="start-title">Switching is the easy part.</h2>
         <p class="lede">We do the fitting, the setup and the tenant briefing. You approve the quote and watch the first top-ups come in.</p>
       </div>
-      <ol class="start-grid">
-        <li class="start-step rv">
-          <span class="num">1</span>
-          <h3>We visit the building</h3>
-          <p>We look at every unit and the main supply, answer your questions and give you a fixed quote.</p>
-        </li>
-        <li class="start-step rv">
-          <span class="num">2</span>
-          <h3>We fit the meters and brief your tenants</h3>
-          <p>Our team installs and tests each meter, then shows tenants how to top up on M-Pesa.</p>
-        </li>
-        <li class="start-step rv">
-          <span class="num">3</span>
-          <h3>Money comes in from the first top-up</h3>
-          <p>Collections go to your account and everything shows on your phone, from day one.</p>
-        </li>
+      <ol class="route">
+        <li class="stop"><span class="dot-n">1</span><h3>We visit the building</h3><p>We look at every unit and the main supply, answer your questions and give you a fixed quote.</p></li>
+        <li class="stop"><span class="dot-n">2</span><h3>We fit the meters and brief your tenants</h3><p>Our team installs and tests each meter, then shows tenants how to top up on M-Pesa.</p></li>
+        <li class="stop"><span class="dot-n">3</span><h3>Money comes in from the first top-up</h3><p>Collections go to your account and everything shows on your phone, from day one.</p></li>
       </ol>
     </div>
   </section>
 
   <!-- FAQ -->
   <section class="section" id="faq" aria-labelledby="faq-title" style="padding-top:0">
-    <div class="wrap faq-grid">
-      <div class="section-head">
-        <span class="eyebrow">Questions landlords ask</span>
-        <h2 id="faq-title">Before you switch a building</h2>
-        <p class="lede">Something else on your mind? Ask us during the site visit.</p>
-      </div>
-      <div>
+    <div class="wrap">
+      <div class="faq-col">
+        <div class="section-head">
+          <h2 id="faq-title">Questions landlords ask before switching</h2>
+        </div>
         <details class="qa" open>
           <summary>Will my tenants accept prepaid water?<span class="pm" aria-hidden="true"></span></summary>
           <div class="a">Most tenants already buy electricity tokens, so topping up water feels familiar. They pay only for what they use, see their usage on their phone, and we show them how it works when the meters go in.</div>
@@ -652,55 +560,52 @@
     </div>
   </section>
 
-  <!-- PILOT CTA -->
+  <!-- CLOSE -->
   <section class="pilot" id="pilot" aria-labelledby="pilot-title">
-    <div class="wrap">
-      <div class="pilot-card">
-        <div class="pilot-copy">
-          <span class="eyebrow">Start with one building</span>
-          <h2 id="pilot-title">See it working in your own building first.</h2>
-          <p>Book a site visit. We'll look at the building, answer your questions and give you a fixed quote.</p>
-          <ul class="ticks pilot-ticks">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg><div><b>One building to start</b><span>Decide on the rest once you've seen the results.</span></div></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg><div><b>A fixed quote</b><span>You know the full cost before anything is installed.</span></div></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg><div><b>Your rate, your money</b><span>You set the water price and collections go to your account.</span></div></li>
-          </ul>
-        </div>
-
-        <form class="pilot-form" id="pilotForm" novalidate data-endpoint="">
-          <div class="f">
-            <label for="fName">Full name</label>
-            <input id="fName" name="name" autocomplete="name" placeholder="e.g. Wanjiru Kamau" required>
-            <span class="err" id="eName"></span>
-          </div>
-          <div class="f-row">
-            <div class="f">
-              <label for="fPhone">Phone</label>
-              <input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="07XX XXX XXX" required>
-              <span class="err" id="ePhone"></span>
-            </div>
-            <div class="f">
-              <label for="fUnits">Units</label>
-              <input id="fUnits" name="units" type="number" inputmode="numeric" min="1" placeholder="24" required>
-              <span class="err" id="eUnits"></span>
-            </div>
-          </div>
-          <div class="f">
-            <label for="fRole">I am a</label>
-            <select id="fRole" name="role">
-              <option>Landlord</option>
-              <option>Property manager</option>
-              <option>Developer or estate</option>
-              <option>Water service provider</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <button class="btn btn-brass" type="submit">Book my site visit
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </button>
-          <p class="form-msg" id="formMsg" aria-live="polite">We'll call you to agree a time. Your details are used only for this.</p>
-        </form>
+    <div class="wrap pilot-in">
+      <div class="pilot-copy">
+        <h2 id="pilot-title">See it working in your own building first.</h2>
+        <p>We'll look at the building, answer your questions and give you a fixed quote.</p>
+        <ul class="assure">
+          <li><b>One building to start</b><span>Decide on the rest once you've seen the results.</span></li>
+          <li><b>A fixed quote</b><span>You know the full cost before anything is installed.</span></li>
+          <li><b>Your rate, your money</b><span>You set the water price and collections go to your account.</span></li>
+        </ul>
       </div>
+
+      <form class="pilot-form" id="pilotForm" novalidate data-endpoint="">
+        <div class="f">
+          <label for="fName">Full name</label>
+          <input id="fName" name="name" autocomplete="name" placeholder="e.g. Wanjiru Kamau" required>
+          <span class="err" id="eName"></span>
+        </div>
+        <div class="f-row">
+          <div class="f">
+            <label for="fPhone">Phone</label>
+            <input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="07XX XXX XXX" required>
+            <span class="err" id="ePhone"></span>
+          </div>
+          <div class="f">
+            <label for="fUnits">Units</label>
+            <input id="fUnits" name="units" type="number" inputmode="numeric" min="1" placeholder="24" required>
+            <span class="err" id="eUnits"></span>
+          </div>
+        </div>
+        <div class="f">
+          <label for="fRole">I am a</label>
+          <select id="fRole" name="role">
+            <option>Landlord</option>
+            <option>Property manager</option>
+            <option>Developer or estate</option>
+            <option>Water service provider</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <button class="btn btn-water" type="submit">Book a site visit
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <p class="form-msg" id="formMsg" aria-live="polite">We'll call you to agree a time. Your details are used only for this.</p>
+      </form>
     </div>
   </section>
 </main>
@@ -720,10 +625,10 @@
       <a href="#meter">The meter</a>
       <a href="#network">Leak alerts</a>
       <a href="#who">Who it's for</a>
-      <a href="#faq">FAQ</a>
+      <a href="#faq">Questions</a>
       <a href="#pilot">Book a site visit</a>
     </nav>
-    <p class="legal">© 2026 Smarta · Nairobi, Kenya · M-Pesa is a trademark of Safaricom PLC</p>
+    <p class="legal">© 2026 Smarta, Nairobi, Kenya. M-Pesa is a trademark of Safaricom PLC.</p>
   </div>
 </footer>
 

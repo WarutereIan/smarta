@@ -102,10 +102,8 @@
     var chipFlow = $("#chipFlow");
     var chipValve = $("#chipValve");
     var chipValveWrap = $("#chipValveWrap");
-    var chipSync = $("#chipSync");
     var toggle = $("#valveToggle");
     var toggleLabel = $("#valveToggleLabel");
-    var lastSync = 8;
     var visible = true;
     var last = performance.now();
     var tAcc = 0;
@@ -138,10 +136,6 @@
     draw();
     if (!reduce) requestAnimationFrame(frame);
 
-    setInterval(function () {
-      lastSync = lastSync >= 30 ? 0 : lastSync + 1;
-      chipSync.textContent = lastSync === 0 ? "just now" : lastSync + " s ago";
-    }, 1000);
 
     toggle.addEventListener("click", function () {
       closed = !closed;
@@ -149,13 +143,11 @@
       toggleLabel.textContent = closed ? "Turn the water back on" : "Turn off water to this unit";
       stage.classList.toggle("is-closed", closed);
       chipValve.textContent = closed ? "Turning off…" : "Turning on…";
-      lcdValve.textContent = closed ? "VALVE ---" : "VALVE ---";
+      lcdValve.textContent = "Valve ···";
       setTimeout(function () {
         chipValve.textContent = closed ? "Off" : "On";
-        lcdValve.textContent = closed ? "VALVE CLOSED" : "VALVE OPEN";
+        lcdValve.textContent = closed ? "Valve closed" : "Valve open";
         chipValveWrap.classList.toggle("is-alert", closed);
-        lastSync = 0;
-        chipSync.textContent = "just now";
         if (reduce) { flow = closed ? 0 : 12.4; draw(); }
       }, 1200);
     });
@@ -176,21 +168,19 @@
   })();
 
   /* ---------------------------------------------------------------
-     Reveals (transform only, content always readable)
+     Hero depth: grid, meter and readouts drift apart as you leave
   --------------------------------------------------------------- */
-  if ("IntersectionObserver" in window && !reduce) {
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+  (function heroDepth() {
+    var hero = $("#hero"), bg = $("#heroBg"), stage = $("#meterStage");
+    if (!hero || reduce) return;
+    var chips = $$(".chip", stage);
+    scene(hero, 0, -0.2, function (p) {
+      bg.style.transform = "translateY(" + (p * 60).toFixed(1) + "px)";
+      chips.forEach(function (c, i) {
+        c.style.translate = "0 " + (-p * (40 + i * 18)).toFixed(1) + "px";
       });
-    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
-    $$(".rv").forEach(function (el, i) {
-      el.style.transitionDelay = (el.classList.contains("day") || el.classList.contains("sensor")) ? ((i % 5) * 70) + "ms" : "0ms";
-      io.observe(el);
     });
-  } else {
-    $$(".rv").forEach(function (el) { el.classList.add("in"); });
-  }
+  })();
 
   /* ---------------------------------------------------------------
      The postpaid month: a red line that runs across the days
@@ -291,7 +281,7 @@
       if (idx === 3) { credit = 0.3 + 5 * ease(clamp(t / 0.7, 0, 1)); open = t > 0.25; }
       if (idx > 3) { credit = 5.3; open = true; }
       miniCredit.textContent = credit.toFixed(3);
-      miniValve.textContent = open ? "ON" : "OFF";
+      miniValve.textContent = open ? "On" : "Off";
       valveInd.style.transform = open ? "rotate(0deg)" : "rotate(90deg)";
       sms.classList.toggle("off", !(idx > 2 || (idx === 2 && t > 0.3)));
 
@@ -305,7 +295,7 @@
     }
     render(0);
     // on phones the sticky stage covers the top of the screen, so read steps lower down
-    var line = function () { return window.innerWidth < 900 ? 0.8 : 0.55; };
+    var line = function () { return window.innerWidth < 900 ? 0.72 : 0.55; };
     scene(steps, line, line, render);
   })();
 
@@ -314,41 +304,37 @@
   --------------------------------------------------------------- */
   (function anatomy() {
     var cut = $("#cutaway");
-    var list = $("#featList");
-    if (!cut || !list) return;
-    var feats = $$(".feat", list);
+    if (!cut) return;
+    var btns = $$(".part-btn", cut);
     var parts = $$(".part", cut);
     var title = $("#cutTitle");
     var text = $("#cutText");
-    var current = null;
+    var i = 0, timer = 0, touched = false;
 
-    function setActive(f) {
-      if (f === current) return;
-      current = f;
-      var key = f.getAttribute("data-part");
-      feats.forEach(function (x) { x.classList.toggle("on", x === f); });
+    function setActive(btn) {
+      var key = btn.getAttribute("data-part");
+      btns.forEach(function (x) { x.setAttribute("aria-pressed", String(x === btn)); });
       parts.forEach(function (p) { p.classList.toggle("on", p.getAttribute("data-part") === key); });
       cut.classList.add("has-active");
-      title.textContent = $("h3", f).textContent;
-      text.textContent = $("p", f).textContent.split(". ")[0].replace(/\.$/, "") + ".";
+      title.textContent = btn.getAttribute("data-title");
+      text.textContent = btn.getAttribute("data-text");
+      i = btns.indexOf(btn);
     }
-    setActive(feats[0]);
-    feats.forEach(function (f) {
-      f.addEventListener("click", function () { setActive(f); });
-      f.addEventListener("focus", function () { setActive(f); });
-      if (finePointer) f.addEventListener("mouseenter", function () { setActive(f); });
-      f.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setActive(f); } });
+    function stop() { touched = true; clearInterval(timer); }
+    setActive(btns[0]);
+    btns.forEach(function (b) {
+      b.addEventListener("click", function () { stop(); setActive(b); });
+      if (finePointer) b.addEventListener("mouseenter", function () { stop(); setActive(b); });
     });
-    scene(list, 0.6, 0.6, function () {
-      var line = window.innerHeight * (window.innerWidth < 900 ? 0.72 : 0.5);
-      var best = null, bd = Infinity;
-      feats.forEach(function (f) {
-        var r = f.getBoundingClientRect();
-        var d = Math.abs(r.top + r.height / 2 - line);
-        if (d < bd) { bd = d; best = f; }
-      });
-      if (best) setActive(best);
-    });
+    // a slow guided tour while the drawing is on screen, until the visitor takes over
+    if (!reduce && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) {
+        clearInterval(timer);
+        if (es[0].isIntersecting && !touched) {
+          timer = setInterval(function () { setActive(btns[(i + 1) % btns.length]); }, 3200);
+        }
+      }, { threshold: 0.5 }).observe(cut);
+    }
   })();
 
   /* ---------------------------------------------------------------
@@ -439,7 +425,8 @@
         ctx.beginPath(); ctx.arc(lk[0], lk[1], 5, 0, Math.PI * 2); ctx.fill();
       }
       // nodes
-      ctx.font = "600 " + (small ? 9 : 10.5) + "px 'IBM Plex Mono', ui-monospace, monospace";
+      ctx.font = "600 " + (small ? 10 : 11.5) + "px Archivo, 'Arial Narrow', sans-serif";
+      if ("fontStretch" in ctx) ctx.fontStretch = "condensed";
       ctx.textBaseline = "middle";
       ["j1", "j2", "j3"].forEach(function (k) {
         var p = P(k);
@@ -589,8 +576,10 @@
   (function tank() {
     var w1 = $("#wave1"), w2 = $("#wave2");
     if (!w1 || reduce) return;
-    var t0 = performance.now();
+    var t0 = performance.now(), on = true;
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { on = es[0].isIntersecting; }).observe(w1.ownerSVGElement);
     (function f(now) {
+      if (!on) { requestAnimationFrame(f); return; }
       var t = (now - t0) / 1000;
       w1.setAttribute("transform", "translate(" + (-((t * 30) % 92)).toFixed(2) + " 0)");
       w2.setAttribute("transform", "translate(" + (-((t * 18 + 40) % 92)).toFixed(2) + " 0)");
@@ -604,38 +593,6 @@
   (function tabs() {
     var tabs = $$('[role="tab"]');
     if (!tabs.length) return;
-    var title = $("#screenTitle"), kpis = $("#kpis"), head = $("#tblHead"), body = $("#tblBody");
-    var pill = function (c, t) { return '<span class="pill ' + c + '">' + t + "</span>"; };
-    var views = {
-      landlord: {
-        title: "Kilimani Court · 24 units",
-        kpis: [["Collected, Oct", "KSh 184,500"], ["Owed to you", "KSh 0"], ["Needs attention", "2", "warn"]],
-        head: ["Unit", "Credit left", "Today", "Water", "Status"],
-        rows: [["1A", "8,200 L", "210 L", "On", pill("", "OK")], ["3B", "600 L", "145 L", "On", pill("low", "Topping up soon")],
-          ["3C", "4,900 L", "612 L", "On", pill("alarm", "Possible leak")], ["5A", "0 L", "0 L", "Off", pill("", "Vacant")]]
-      },
-      manager: {
-        title: "Your portfolio · 6 buildings",
-        kpis: [["Collected, Oct", "KSh 1.12M"], ["Units", "212"], ["Needs attention", "5", "warn"]],
-        head: ["Building", "Units", "Collected", "Statement", "Alerts"],
-        rows: [["Kilimani Court", "24", "KSh 184,500", "Sent", pill("alarm", "2")], ["Ngong Rd Flats", "48", "KSh 251,000", "Sent", pill("", "0")],
-          ["Ruaka Heights", "60", "KSh 298,200", "Sent", pill("low", "1")], ["Syokimau Park", "36", "KSh 167,900", "Sent", pill("alarm", "2")]]
-      },
-      developer: {
-        title: "Riverside Gardens · phase 2",
-        kpis: [["Homes metered", "120 / 120"], ["Handed over", "86"], ["Needs attention", "1", "warn"]],
-        head: ["Block", "Homes", "Metered", "Occupied", "Status"],
-        rows: [["A", "30", "30", "28", pill("", "Live")], ["B", "30", "30", "26", pill("", "Live")],
-          ["C", "30", "30", "22", pill("low", "1 tank low")], ["D", "30", "30", "10", pill("", "Handing over")]]
-      },
-      wsp: {
-        title: "Zone 4 · October",
-        kpis: [["Water supplied", "18,420 m³"], ["Water paid for", "14,610 m³"], ["Lost", "20.7%", "warn"]],
-        head: ["Area", "Supplied", "Paid for", "Lost", "Status"],
-        rows: [["4-A", "4,980 m³", "4,310 m³", "13%", pill("", "Normal")], ["4-B", "5,220 m³", "3,640 m³", "30%", pill("alarm", "Investigate")],
-          ["4-C", "3,870 m³", "3,350 m³", "13%", pill("", "Normal")], ["4-D", "4,350 m³", "3,310 m³", "24%", pill("low", "Watch")]]
-      }
-    };
     function show(tab) {
       tabs.forEach(function (t) {
         var on = t === tab;
@@ -643,11 +600,6 @@
         t.tabIndex = on ? 0 : -1;
         $("#" + t.getAttribute("aria-controls")).hidden = !on;
       });
-      var v = views[tab.id.replace("tab-", "")];
-      title.textContent = v.title;
-      kpis.innerHTML = v.kpis.map(function (k) { return '<div class="kpi"><small>' + k[0] + '</small><b class="' + (k[2] || "") + '">' + k[1] + "</b></div>"; }).join("");
-      head.innerHTML = v.head.map(function (h) { return "<th>" + h + "</th>"; }).join("");
-      body.innerHTML = v.rows.map(function (r) { return "<tr>" + r.map(function (c) { return "<td>" + c + "</td>"; }).join("") + "</tr>"; }).join("");
     }
     tabs.forEach(function (t, i) {
       t.addEventListener("click", function () { show(t); });
