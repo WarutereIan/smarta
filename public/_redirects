@@ -1,0 +1,2 @@
+# Netlify: let React Router handle deep links inside the tenant app
+/tenant/*  /tenant/index.html  200

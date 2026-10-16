@@ -5,14 +5,12 @@ import {
   getPaymentHistory, 
   getCurrentTenant, 
   initiatePayment,
-  checkPaymentStatus,
   formatCurrency,
   formatDate,
   formatPaymentHistory
 } from '../lib/api';
 import type { 
   Billing, 
-  Payment, 
   PaymentHistory, 
   PaymentRequest,
   Tenant,

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Droplet, FileText, Calendar, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
+import { FileText, Calendar, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
 import { 
   getTenantBills, 
   getCurrentTenant, 
